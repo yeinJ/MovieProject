@@ -26,6 +26,11 @@ commit message는 자신이 수정한 내용 잘 드러나게 작성하기
   위 방법을 사용하지 않으면 VCS에 직접 url을 넣어 연동도 가능함 (참고 url: https://hoohaha.tistory.com/38)
   
   
+### 브랜치 만드는 법
+1. git branch  위치확인
+2. git branch 브랜치명
+3. git switch 브랜치명
+  
   
   
 ###  <commit & push>
