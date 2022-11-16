@@ -1,9 +1,12 @@
 <template>
   <div class="movie-total-list">
+    <!-- <h1>{{movies}}</h1> -->
     <MovieList
-      v-for='movie in movies'
-      v-bind:key='movie.id'
-      v-bind:movie='movie'/>
+    v-for='movie in movies'
+    v-bind:key='movie.id'
+    v-bind:movie='movie'
+    />
+   
   </div>
 </template>
 

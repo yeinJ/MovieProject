@@ -2,7 +2,7 @@
   <div>
     <p>영화제목 : {{movie.title}}</p>
     <p>평점 : {{movie.vote_average}}</p>
-    <router-link :to="{ name: 'DetailView', params: { id: article.id } }">
+    <router-link :to="{ name: 'DetailView', params: { id: movie.id } }">
       [DETAIL]
     </router-link>
   </div>

@@ -19,6 +19,7 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_MOVIES(state, movies) {
+
       state.movies = movies
     }
   
@@ -29,12 +30,12 @@ export default new Vuex.Store({
         method:'get',
         url : `${API_URL}/api/v1/movies`,
       })
-      .then((res) => {
-        context.commit('GET_MOVIES',res.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then((res) => {
+          context.commit('GET_MOVIES', res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
 
   },
