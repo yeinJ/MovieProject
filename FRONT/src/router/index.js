@@ -13,17 +13,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'HomeView',
     component: HomeView,
   },
   {
     path:'/movietotal',
-    name:'movietotal',
+    name:'MovieTotalView',
     component: MovieTotalListView,
   },
   {
     path:'/recommend',
-    name:'recommend',
+    name:'RecommendView',
     component: RecommendListView,
   },
   {
@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: 'movies/:id/reviews',
-    name: 'ReviewDetail',
+    name: 'ReviewDetailView',
     component: ReviewDetail,
   },
 

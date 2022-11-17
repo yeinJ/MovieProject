@@ -1,7 +1,7 @@
 <template>
   <div>
-    <router-link to="/movietotal">Total</router-link> |
-    <router-link to="/recommend">Recommend</router-link>
+    <router-link v-bind:to="{name:'MovieTotalView'}">Total</router-link> |
+    <router-link v-bind:to="{name:'RecommendView'}">Recommend</router-link>
   </div>
 </template>
 

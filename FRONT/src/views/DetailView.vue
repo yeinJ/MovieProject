@@ -2,6 +2,7 @@
   <div>
     <h1>Detail</h1>
     <p>영화 이름 : {{movie?.title}}</p>
+    
     <hr>
     <ReviewForm/>
 
@@ -26,7 +27,6 @@ export default {
   },
   created() {
     this.getMovieDetail()
-    
   },
   methods: {
     getMovieDetail() {
@@ -36,6 +36,7 @@ export default {
       })
        .then((res) => {
         this.movie = res.data
+        console.log(this.movie)
        })
        .catch((err) => {
         console.log(err)

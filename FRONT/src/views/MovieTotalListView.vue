@@ -14,7 +14,7 @@
 import MovieList from '@/components/MovieList';
 
 export default {
-  name:'MovieTotalList',
+  name:'MovieTotalView',
   components: {
     MovieList,
   },
