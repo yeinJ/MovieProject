@@ -2,18 +2,23 @@
   <div>
     <h1>Detail</h1>
     <p>영화 이름 : {{movie?.title}}</p>
-
-    
+    <hr>
+    <ReviewForm/>
 
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import ReviewForm from '@/components/ReviewForm.vue'
+
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name : 'DetailView',
+  components: {
+    ReviewForm
+  },
   data() {
     return {
       movie: null,

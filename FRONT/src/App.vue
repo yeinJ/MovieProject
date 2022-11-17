@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <nav>
-      <router-link to="/movietotal">Total</router-link> |
-      <router-link to="/recommend">Recommend</router-link>
-
+      <router-link to="/">Home</router-link> |
+      <router-link to="/signup">회원가입</router-link> 
+       
     </nav>
     <router-view/>
   </div>
