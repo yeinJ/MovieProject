@@ -1,6 +1,5 @@
 <template>
   <div class="movie-total-list">
-    <!-- <h1>{{movies}}</h1> -->
     <MovieList
     v-for='movie in movies'
     v-bind:key='movie.id'
@@ -36,5 +35,10 @@ export default {
 </script>
 
 <style>
+.movie-total-list{
+  display:grid;
+  grid-template-columns: repeat(10,1fr);
+
+}
 
 </style>
