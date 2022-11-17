@@ -15,10 +15,10 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     genres=models.ManyToManyField(Genre)
 
-# class Review(models.Model):
-#     title = models.CharField(max_length=100)
-#     content = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add = True)
-#     updated_at = models.DateTimeField(auto_now = True)
-#     movie = models.ForeignKey(Movie, related_name = 'reviews')
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'reviews')
+class Review(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    movie = models.ForeignKey(Movie, related_name = 'reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name = 'reviews', on_delete=models.CASCADE)
