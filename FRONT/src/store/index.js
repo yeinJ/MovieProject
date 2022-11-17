@@ -15,18 +15,17 @@ export default new Vuex.Store({
   // ], 
   state: {
     movies : [],
-    token : '',
+    token : null,
   },
   getters: {
   },
   mutations: {
     GET_MOVIES(state, movies) {
-
       state.movies = movies
     },
     SAVE_TOKEN(state,token) {
       state.token = token
-      router.push({name:'HomeView'})
+      router.push({ name:'HomeView' })
     }
   
   },

@@ -22,9 +22,9 @@ export default {
   name : 'SignUpView',
   data() {
     return {
-      username : '',
-      password1 : '',
-      password2 : '',
+      username : null,
+      password1 : null,
+      password2 : null,
     }
   },
   methods: {
@@ -34,9 +34,9 @@ export default {
       const password2 = this.password2
 
       const payload = {
-        username,
-        password1,
-        password2,
+        username: username,
+        password1: password1,
+        password2: password2,
       }
 
       this.$store.dispatch('signUp',payload)
