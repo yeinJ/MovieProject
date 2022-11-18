@@ -1,27 +1,30 @@
 <template>
   <div>
-    <h1>Detail</h1>
-    <img :src="posterPath" :alt="movie?.title">
-    <p>영화 이름 : {{movie?.title}}</p>
-    <p>평점 : {{movie?.vote_average}}</p>
-    <p>관객수 : {{movie?.popularity}}</p>
-    <p>개봉일 : {{movie?.release_date}}</p>
-    <p>
-      장르 : 
-      <span v-for="(genre,index) in movie?.genres" v-bind:key="index">
-        {{genre.name}}
-      </span>
-    </p>
-    <p>줄거리 : {{movie?.overview}}</p>
-    <hr>
-    <ReviewForm/>
-
+    <div class="MovieDetail">
+      <h1>Detail</h1>
+      <img :src="posterPath" :alt="movie?.title">
+      <p>영화 이름 : {{movie?.title}}</p>
+      <p>평점 : {{movie?.vote_average}}</p>
+      <p>관객수 : {{movie?.popularity}}</p>
+      <p>개봉일 : {{movie?.release_date}}</p>
+      <p>
+        장르 : 
+        <span v-for="(genre,index) in movie?.genres" v-bind:key="index">
+          {{genre.name}}
+        </span>
+      </p>
+      <p>줄거리 : {{movie?.overview}}</p>
+      <hr>
+    </div>
+    <div class="ReviewWrite">
+      <ReviewForm/>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import ReviewForm from '@/components/ReviewForm.vue'
+import ReviewForm from '@/components/Review/ReviewForm.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -62,6 +65,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.MovieDetail{
+  position: relative;
+  float: left;
+  margin-left: 10%;
+  width:30%;
+  /* transform: translate(-50%,-50%); */
+}
+.ReviewWrite{
+  position:absolute;
+  float: right;
+  margin-top:10%;
+  width:30%;
+  margin-left : 50%;
+  box-sizing: border-box;
 
+}
 </style>

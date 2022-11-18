@@ -2,13 +2,22 @@
   <div>
     <h1>게시글 작성</h1>
     <form v-on:submit.prevent="createMovieReview">
-      <label for="title">제목 : </label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용 : </label>
-      <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
-      <input type="submit" id="submit">
+        <label for="title">제목</label>
+        <input type="text" class="form-control" id="title" v-model.trim="title" placeholder="Enter Title">
+        <br>
+        <label for="content">내용</label>
+        <textarea class="form-control" v-model="content" id="content" rows="3"></textarea>
+        <b-button type="submit" block variant="danger" class="btn btn-danger mt-3" id="submit">Submit</b-button>
     </form>
+
+  <div>
   </div>
+    
+    <div class="btn">
+      <button @click="goList">메인으로</button>
+    </div>
+  </div>
+  
 </template>
 
 <script>
@@ -21,13 +30,16 @@ export default {
       title: null,
       content: null,
       movie:null,
+
     }
   },
+  
   methods : {
     createMovieReview(){
       const title = this.title
       const content = this.content
       const movie = this.$route.params.id
+
       if(!title){
         alert('제목을 입력해주세요')
       }else if(!content){
@@ -51,10 +63,14 @@ export default {
         })
         .catch((err)=> {
           console.log(err)
-          console.log(this.user)
         })
     
-    }
+    },
+    goList: function () {
+      this.$router.push({ name: "HomeView" });
+    },
+
+
 
   }
   

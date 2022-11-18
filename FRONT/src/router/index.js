@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView'
 import MovieTotalListView from '@/views/MovieTotalListView'
 import RecommendListView from '@/views/RecommendListView'
-import SignUpView from '@/views/SignUpView'
-import LoginView from '@/views/LoginView'
+import SignUpView from '@/views/Account/SignUpView'
+import LoginView from '@/views/Account/LoginView'
 import DetailView from '@/views/DetailView'
-import ReviewDetail from '@/components/ReviewDetail'
+import ReviewDetail from '@/components/Review/ReviewDetail'
 
 Vue.use(VueRouter)
 

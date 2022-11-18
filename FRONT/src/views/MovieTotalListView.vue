@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import MovieList from '@/components/MovieList';
+import MovieList from '@/components/Movie/MovieList';
 
 export default {
   name:'MovieTotalView',

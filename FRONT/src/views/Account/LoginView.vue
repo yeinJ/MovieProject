@@ -19,7 +19,7 @@
           <b-form-input type="password" id="password" v-model="password" aria-describedby="password-help-block"></b-form-input>
 
         <!-- <input type="submit" value="logIn"> -->
-        <b-button class='loginbutton' type="submit" value="logIn" variant="danger">Button</b-button>
+        <b-button class='loginbutton' type="submit" value="logIn" block variant="danger">LogIn</b-button>
       </b-form>
     </div>
   </div>
@@ -61,7 +61,7 @@ h1{
   padding-right : 40%;
 }
 .loginbutton{
-    margin-left : 80%;
+
     margin-top : 10%;
   }
 

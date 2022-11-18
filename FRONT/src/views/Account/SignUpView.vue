@@ -18,7 +18,7 @@
         <label for="password2" >Password2</label>
           <b-form-input type="password" id="password2" v-model="password2" ></b-form-input>
         <!-- <input type="submit" value="SignUp"> -->
-        <b-button class='signupbutton' type="submit" value="SignUp" variant="danger">Button</b-button>
+        <b-button class='signupbutton' type="submit" value="SignUp" block variant="danger">SignUp</b-button>
       </b-form>
     </div>
 
@@ -81,7 +81,6 @@ export default {
     padding-right : 40%
   }
   .signupbutton{
-    margin-left : 80%;
     margin-top : 10%;
   }
 
