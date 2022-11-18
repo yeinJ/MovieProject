@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>LogIn Page</h1>
     <!-- <form v-on:submit.prevent="logIn">
       <label for="username">username : </label>
       <input type="text" id="username" v-model="username"><br>
@@ -10,23 +9,19 @@
 
       <input type="submit" value="logIn">
     </form> -->
-    <b-form  v-on:submit.prevent="logIn">
-      <label for="username">User ID</label>
-        <b-form-input type="text" id="username" v-model="username" v-bind:state="validation"></b-form-input>
-        <b-form-invalid-feedback v-bind:state="validation">
-          Your user ID must be 5-12 characters long.
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback v-bind:state="validation">
-          Looks Good.
-        </b-form-valid-feedback>
-      <label for="password" >Password</label>
-        <b-form-input type="password" id="password" v-model="password" aria-describedby="password-help-block"></b-form-input>
-        <b-form-text id="password-help-block">
-         Your password must be 8-20 characters long, contain letters and numbers, and must not
-         contain spaces, special characters, or emoji.
-        </b-form-text>
-      <input type="submit" value="logIn">
-    </b-form>
+    <div class="loginbox">
+      <h1>LogIn</h1>
+      <b-form  v-on:submit.prevent="logIn">
+        <label for="username">User ID</label>
+          <b-form-input type="text" id="username" v-model="username"></b-form-input>
+
+        <label for="password" >Password</label>
+          <b-form-input type="password" id="password" v-model="password" aria-describedby="password-help-block"></b-form-input>
+
+        <!-- <input type="submit" value="logIn"> -->
+        <b-button class='loginbutton' type="submit" value="logIn" variant="danger">Button</b-button>
+      </b-form>
+    </div>
   </div>
 </template>
 
@@ -39,11 +34,7 @@ export default {
       password: '',
     }
   },
-  computed: {
-      validation() {
-        return this.username.length > 4 && this.username.length < 13
-      }
-  },
+
   methods : {
     logIn() {
       const username = this.username
@@ -60,6 +51,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+h1{
+  text-align:center;
+}
+.loginbox{
+  margin-top: 40px;
+  padding-left : 40%;
+  padding-right : 40%;
+}
+.loginbutton{
+    margin-left : 80%;
+    margin-top : 10%;
+  }
 
 </style>

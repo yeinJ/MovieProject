@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class='bg-dark'>
-      <nav class="navbar navbar-expand-sm navbar-light bg-warning">
+  <div id="app">
+      <nav class="navbar navbar-expand-sm navbar-light bg-danger">
         <div class="container-fluid">
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -11,9 +11,6 @@
             </li>
             <li class="nav-item">
               <router-link v-bind:to="{name:'LoginView'}" class="nav-link">LogIn</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{name: 'Score'}" class="nav-link">Score</router-link>
             </li>
           </ul>
         </div>
@@ -44,14 +41,14 @@ export default {
     
   },
   computed : {
-    cookie() {
-      return document.cookie
-    }
+    // cookie() {
+    //   return document.cookie
+    // }
   },
   methods : {
-    logout() {
-      console.log('로그하웃하실?')
-    }
+    // logout() {
+    //   console.log('로그하웃하실?')
+    // }
   }
 
 
@@ -60,3 +57,10 @@ export default {
 
 </script>
 
+<style>
+html
+body {
+  background-color:black;
+  color:white
+}
+</style>

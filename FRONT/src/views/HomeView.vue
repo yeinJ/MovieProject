@@ -1,23 +1,16 @@
 <template>
   <div>
+    <div class="wrapper">
+      <div class="typing-demo">
+        YOU MUST FIND HAPPINESS      
+      </div>
+    </div>
     <div>
-      <b-card
-        overlay
-        img-src="https://picsum.photos/900/250/?image=3"
-        img-alt="Card Image"
-        text-variant="white"
-        title="여기영화놓고싶음"
-        sub-title="Subtitle"
-      >
-        <b-card-text>
-          S이건 나중에 하은이랑 얘기해봐야징~~
-        </b-card-text>
-      </b-card>
-      <!-- <router-link v-bind:to="{name:'MovieTotalView'}">Total</router-link> | -->
       <router-link v-bind:to="{name:'RecommendView'}">Recommend</router-link>
       <hr>
       <h1>전체영화목록</h1>
       <MovieTotalListView/>
+      <button class="btn danger" v-on:click="morepage" >More</button>
     </div>
   </div>
 </template>
@@ -33,9 +26,35 @@ export default {
 }
 </script>
 
-<style>
-body{
-  background-color: black;
+<style scoped>
+
+.wrapper {
+  height: 100vh;
+  display: grid;
+  place-items: center;
 }
+
+.typing-demo {
+  width: 24ch;
+  animation: typing 2s steps(23), blink .10s step-end infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 5em;
+  color:white;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+    
+/* @keyframes blink {
+  50% {
+    border-color: transparent
+  }
+} */
 
 </style>

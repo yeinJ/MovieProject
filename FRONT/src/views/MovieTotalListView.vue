@@ -5,7 +5,6 @@
     v-bind:key='movie.id'
     v-bind:movie='movie'
     />
-   
   </div>
 </template>
 
@@ -28,7 +27,11 @@ export default {
   methods: {
     getMovies() {
       this.$store.dispatch('getMovies')
-    }
+      
+    },
+
+
+
   }
 
 }
@@ -37,7 +40,7 @@ export default {
 <style>
 .movie-total-list{
   display:grid;
-  grid-template-columns: repeat(10,1fr);
+  grid-template-columns: repeat(7,1fr);
 
 }
 

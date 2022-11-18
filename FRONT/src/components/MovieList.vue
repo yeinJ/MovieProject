@@ -9,11 +9,6 @@
         </b-button>
       </div>
     </div>
-    <!-- <p>영화제목 : {{movie.title}}</p>
-    <p>평점 : {{movie.vote_average}}</p>
-    <router-link :to="{ name: 'DetailView', params: { id: movie.id } }">
-      [DETAIL]
-    </router-link>-->
   </div>
 </template>
 
@@ -41,6 +36,7 @@ export default {
   .movietitle{
     font-family: Georgia, "Malgun Gothic", serif;
     font-size:12px;
+    color:white;
   }
   .movielist{
     padding:10px;
@@ -56,8 +52,10 @@ export default {
     display:block;
     padding: 5px 10px;
     text-align: center;
-    position: relative;
-    top : 30%;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate( -50%, -50% );
   }
   .overview {
     display: block;
