@@ -19,6 +19,9 @@
     <div class="ReviewWrite">
       <ReviewForm/>
     </div>
+    <div class="MovieDetail">
+      {{ movie?.reviews }}
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,7 @@ export default {
   data() {
     return {
       movie: null,
+      // posterPath: null,
     }
   },
   created() {
@@ -50,10 +54,11 @@ export default {
     getMovieDetail() {
       axios({
         method : 'get',
-        url : `${API_URL}/api/v1/movies/${this.$route.params.id}`
+        url : `${API_URL}/api/v1/movies/${this.$route.params.id}/`
       })
        .then((res) => {
         this.movie = res.data
+        // this.posterPath = "https://i0.wp.com/image.tmdb.org/t/p/w300"+this.movie?.poster_path
        })
        .catch((err) => {
         console.log(err)

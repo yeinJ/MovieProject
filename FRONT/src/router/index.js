@@ -7,6 +7,7 @@ import SignUpView from '@/views/Account/SignUpView'
 import LoginView from '@/views/Account/LoginView'
 import DetailView from '@/views/DetailView'
 import ReviewDetail from '@/components/Review/ReviewDetail'
+import MyPageView from '@/views/MyPageView'
 
 Vue.use(VueRouter)
 
@@ -42,13 +43,15 @@ const routes = [
     component: DetailView,
   },
   {
-    path: 'movies/:id/reviews',
+    path: '/movies/:id/reviews',
     name: 'ReviewDetailView',
     component: ReviewDetail,
   },
-
-
-
+  {
+    path: '/mypage',
+    name: 'MyPageView',
+    component: MyPageView,
+  },
 
 ]
 

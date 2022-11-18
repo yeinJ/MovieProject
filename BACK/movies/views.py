@@ -2,18 +2,28 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .models import Movie, Review
-from .serializers.movies import MovieSerializer, ReviewSerializer
+from .serializers import MovieSerializer, ReviewSerializer
 
-# 전체 영화 목록 페이지 조회
+# 전체 영화 목록 조회
 @api_view(['GET'])
 def movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 
-# 단일 영화 페이지 조회
+
+# 추천 영화 목록 조회
+@api_view(['GET'])
+def movie_recommend(request):
+    pass
+
+
+# 단일 영화 detail 조회
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
@@ -22,6 +32,7 @@ def movie_detail(request, movie_pk):
 
 # 리뷰 등록
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def review_create(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = ReviewSerializer(data=request.data)
@@ -31,6 +42,7 @@ def review_create(request, movie_pk):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     
@@ -41,18 +53,26 @@ def review_detail(request, review_pk):
 
     # 리뷰 수정
     elif request.method == 'PUT':
-        serializer = ReviewSerializer(review, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        if request.user == review.user:
+            serializer = ReviewSerializer(review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        else:
+            return Response(False)
 
     # 리뷰 삭제
     elif request.method == 'DELETE':
-        review.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if request.user == review.user:
+            review.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(False)
 
 
+# 영화 좋아요 추가 / 삭제
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def movie_like(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     user = request.user
@@ -66,7 +86,9 @@ def movie_like(request, movie_pk):
     return Response(liked)
 
 
+# 리뷰 좋아요 추가 / 삭제
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def review_like(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     user = request.user

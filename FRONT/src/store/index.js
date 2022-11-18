@@ -35,7 +35,7 @@ export default new Vuex.Store({
     getMovies(context) {
       axios({
         method:'get',
-        url : `${API_URL}/api/v1/movies`,
+        url : `${API_URL}/api/v1/movies/`,
 
       })
         .then((res) => {
