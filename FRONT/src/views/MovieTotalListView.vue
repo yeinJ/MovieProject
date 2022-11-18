@@ -1,12 +1,10 @@
 <template>
   <div class="movie-total-list">
-    <!-- <h1>{{movies}}</h1> -->
     <MovieList
     v-for='movie in movies'
     v-bind:key='movie.id'
     v-bind:movie='movie'
     />
-   
   </div>
 </template>
 
@@ -29,12 +27,21 @@ export default {
   methods: {
     getMovies() {
       this.$store.dispatch('getMovies')
-    }
+      
+    },
+
+
+
   }
 
 }
 </script>
 
 <style>
+.movie-total-list{
+  display:grid;
+  grid-template-columns: repeat(7,1fr);
+
+}
 
 </style>

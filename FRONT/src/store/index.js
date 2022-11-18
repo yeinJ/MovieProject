@@ -15,6 +15,7 @@ export default new Vuex.Store({
   state: {
     movies : [],
     token : null,
+    moreCnt : 0, // 개수 제한 21개
   },
   getters: {
     isLogin(state) {
@@ -35,9 +36,11 @@ export default new Vuex.Store({
       axios({
         method:'get',
         url : `${API_URL}/api/v1/movies`,
+
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
+          this.moreCnt++;
         })
         .catch((err) => {
           console.log(err)

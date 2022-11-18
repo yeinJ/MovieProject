@@ -1,8 +1,18 @@
 <template>
   <div>
     <h1>Detail</h1>
+    <img :src="posterPath" :alt="movie?.title">
     <p>영화 이름 : {{movie?.title}}</p>
-    
+    <p>평점 : {{movie?.vote_average}}</p>
+    <p>관객수 : {{movie?.popularity}}</p>
+    <p>개봉일 : {{movie?.release_date}}</p>
+    <p>
+      장르 : 
+      <span v-for="(genre,index) in movie?.genres" v-bind:key="index">
+        {{genre.name}}
+      </span>
+    </p>
+    <p>줄거리 : {{movie?.overview}}</p>
     <hr>
     <ReviewForm/>
 
@@ -20,6 +30,11 @@ export default {
   components: {
     ReviewForm
   },
+  computed : {
+    posterPath() {
+      return "https://i0.wp.com/image.tmdb.org/t/p/w300"+this.movie?.poster_path
+    }
+  },
   data() {
     return {
       movie: null,
@@ -36,7 +51,6 @@ export default {
       })
        .then((res) => {
         this.movie = res.data
-        console.log(this.movie)
        })
        .catch((err) => {
         console.log(err)
