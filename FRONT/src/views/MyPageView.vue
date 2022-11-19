@@ -1,9 +1,9 @@
 <template>
     <div>
-        <p>아이디 : {{ userInfo.username }}</p>
-        <p>좋아하는 영화 : {{ userInfo.like_movies }}</p>
-        <p>좋아하는 리뷰: {{ userInfo.like_reviews }}</p>
-        <p>작성 리뷰 : {{ userInfo.reviews }}</p>
+        <p>아이디 : {{ userInfo?.username }}</p>
+        <p>좋아하는 영화 : {{ userInfo?.like_movies }}</p>
+        <p>좋아하는 리뷰: {{ userInfo?.like_reviews }}</p>
+        <p>작성 리뷰 : {{ userInfo?.reviews }}</p>
     </div>
 </template>
 

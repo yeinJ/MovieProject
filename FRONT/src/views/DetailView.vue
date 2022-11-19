@@ -15,6 +15,12 @@
       </p>
       <p>줄거리 : {{movie?.overview}}</p>
       <hr>
+      <b-button 
+          v-if="this.$store.state.token"
+          v-on:click="likeMovie" 
+          v-bind:class="{ 'is-liked' : this.isLiked }"> 
+          Like
+      </b-button>
     </div>
     <div class="ReviewWrite">
       <ReviewForm/>
@@ -46,10 +52,12 @@ export default {
     return {
       movie: null,
       // posterPath: null,
+      isLiked: false,
     }
   },
   created() {
     this.getMovieDetail()
+    this.checkLiked()
   },
   methods: {
     getMovieDetail() {
@@ -64,10 +72,45 @@ export default {
        .catch((err) => {
         console.log(err)
        })
-    }
-  }
-
-
+    },
+    checkLiked() {
+      if (this.$store.state.token) {
+        axios({
+          method: 'get',
+          url: `${API_URL}/mypage/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+        .then((res) => {
+          for (const like_movie of res.data.like_movies) {
+            if (like_movie.id == this.movie.id) {
+              this.isLiked = true
+              break
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    likeMovie() {
+      axios({
+        method : 'post',
+        url : `${API_URL}/api/v1/movies/${this.movie.id}/like/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          this.isLiked = res.data
+        })
+        .catch((err)=> {
+          console.log(err)
+        })
+    },
+  },
 }
 </script>
 
@@ -88,4 +131,10 @@ export default {
   box-sizing: border-box;
 
 }
+
+.is-liked {
+    text-decoration: line-through;
+  }
+
+
 </style>

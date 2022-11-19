@@ -35,7 +35,7 @@ export default new Vuex.Store({
       state.token=null
       // console.log(state.token) 토큰없음
       localStorage.removeItem('token')
-      location.reload();
+      // location.reload();
       router.push({ name:'HomeView' })
     }
   },

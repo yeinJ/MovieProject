@@ -7,23 +7,79 @@
         <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="primary">
           Detail
         </b-button>
+        <b-button 
+          v-if="this.$store.state.token" 
+          v-on:click="likeMovie" 
+          v-bind:class="{ 'is-liked' : this.isLiked }"> 
+          Like
+        </b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
+const API_URL = 'http://127.0.0.1:8000'
+
 export default {
   name:'MovieList',
   props: {
     movie:Object
+  },
+  data() {
+    return {
+      isLiked: false,
+    }
+  },
+  created() {
+    this.checkLiked()
   },
   computed : {
     posterPath() {
       return "https://i0.wp.com/image.tmdb.org/t/p/w300"+this.movie.poster_path
     }
   },
-  
+  methods: {
+    checkLiked() {
+      if (this.$store.state.token) {
+        axios({
+          method: 'get',
+          url: `${API_URL}/mypage/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+        .then((res) => {
+          for (const movie of res.data.like_movies) {
+            if (movie.id == this.movie.id) {
+              this.isLiked = true
+              break
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    likeMovie() {
+      axios({
+        method : 'post',
+        url : `${API_URL}/api/v1/movies/${this.movie.id}/like/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          this.isLiked = res.data
+        })
+        .catch((err)=> {
+          console.log(err)
+        })
+    },
+  }
 }
 </script>
 
@@ -64,5 +120,8 @@ export default {
     white-space: nowrap;
   }
 
+  .is-liked {
+    text-decoration: line-through;
+  }
 
 </style>
