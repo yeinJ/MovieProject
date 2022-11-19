@@ -6,28 +6,25 @@
             <li class="nav-item">
               <router-link v-bind:to="{name:'HomeView'}" class="nav-link">Home</router-link>
             </li>
-            <li class="nav-item">
-              <router-link v-bind:to="{name:'SignUpView'}" class="nav-link">SignUp</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link v-bind:to="{name:'LoginView'}" class="nav-link">LogIn</router-link>
-            </li>
-            <li class="nav-item">
-              <router-link v-bind:to="{name:'MyPageView'}" class="nav-link">MyPage</router-link>
-            </li>
+            <div v-if="!this.$store.state.token">
+              <!-- <li class="nav-item">
+                <router-link v-bind:to="{name:'SignUpView'}" class="nav-link">SignUp</router-link>
+              </li> -->
+              <li class="nav-item">
+                <router-link v-bind:to="{name:'LoginView'}" class="nav-link">LogIn</router-link>
+              </li>
+            </div>
+            <div v-else>
+              <li class="nav-item" type="button" @click="logout">
+                <a class="nav-link">Logout</a>
+              </li>
+              <li class="nav-item">
+                <router-link v-bind:to="{name:'MyPageView'}" class="nav-link">MyPage</router-link>
+              </li>
+            </div>  
           </ul>
         </div>
       </nav>
-      <!-- <div v-if="!cookie">
-        <router-link v-bind:to="{name:'HomeView'}">Home</router-link> |
-        <router-link v-bind:to="{name:'SignUpView'}">회원가입</router-link> |
-        <router-link v-bind:to="{name:'LoginView'}">로그인</router-link>
-      </div>
-      <div v-else>
-        <router-link v-bind:to="{name:'HomeView'}">Home</router-link> |
-        예인님! |
-        <router-link type="button" class="logoutButton" v-on:click="logout" v-bind:to="{name:'HomeView'}">로그아웃</router-link>
-      </div> -->
       <router-view/>
 
     
@@ -49,9 +46,10 @@ export default {
     // }
   },
   methods : {
-    // logout() {
-    //   console.log('로그하웃하실?')
-    // }
+    logout() {
+      this.$store.dispatch('logOut')
+    }
+    
   }
 
 
@@ -66,4 +64,10 @@ body {
   background-color:black;
   color:white
 }
+
+.nav-item{
+  list-style-type:none;
+  float:left;
+}
+
 </style>

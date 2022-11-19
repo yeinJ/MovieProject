@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- <form v-on:submit.prevent="logIn">
-      <label for="username">username : </label>
-      <input type="text" id="username" v-model="username"><br>
-
-      <label for="password"> password : </label>
-      <input type="password" id="password" v-model="password"><br>
-
-      <input type="submit" value="logIn">
-    </form> -->
     <div class="loginbox">
       <h1>LogIn</h1>
       <b-form  v-on:submit.prevent="logIn">
@@ -21,6 +12,13 @@
         <!-- <input type="submit" value="logIn"> -->
         <b-button class='loginbutton' type="submit" value="logIn" block variant="danger">LogIn</b-button>
       </b-form>
+      <div class="signup">
+      <br>
+        <span>Are you New?</span>
+        <br> 
+        &nbsp;
+        <b-button block variant="dark" :to="{ name: 'SignUpView' }">SignUp</b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +50,7 @@ export default {
 </script>
 
 <style scoped>
+
 h1{
   text-align:center;
 }

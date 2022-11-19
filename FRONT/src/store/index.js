@@ -30,6 +30,14 @@ export default new Vuex.Store({
       state.token = token
       router.push({ name:'HomeView' })
     },
+    LOGOUT(state){
+      // console.log(state.token) 토큰있음
+      state.token=null
+      // console.log(state.token) 토큰없음
+      localStorage.removeItem('token')
+      location.reload();
+      router.push({ name:'HomeView' })
+    }
   },
   actions: {
     getMovies(context) {
@@ -74,6 +82,10 @@ export default new Vuex.Store({
         })
         .catch(err => console.log(err))
     },
+    logOut({commit}){
+      commit('LOGOUT')
+    },
+
   },
 
 })

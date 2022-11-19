@@ -19,7 +19,8 @@
     <div class="ReviewWrite">
       <ReviewForm/>
     </div>
-    <div class="MovieDetail">
+    <div>
+
       {{ movie?.reviews }}
     </div>
   </div>

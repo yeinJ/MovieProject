@@ -14,7 +14,7 @@
   </div>
     
     <div class="btn">
-      <button @click="goList">메인으로</button>
+      <b-button variant="dark" @click="goList">메인으로</b-button>
     </div>
   </div>
   
@@ -60,6 +60,7 @@ export default {
       })
         .then((res) => {
           console.log(res)
+          location.reload()
         })
         .catch((err)=> {
           console.log(err)

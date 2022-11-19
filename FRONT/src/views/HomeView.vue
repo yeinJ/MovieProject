@@ -21,15 +21,24 @@ import MovieTotalListView from './MovieTotalListView.vue'
 export default {
   components: {
     MovieTotalListView
+  },
+  methods : {
+    morepage() {
+      console.log('이거버튼')
+    }
   }
 
 }
 </script>
 
 <style scoped>
+.backgroundimg{
+  opacity:50%;
+
+}
 
 .wrapper {
-  height: 100vh;
+  height: 50vh;
   display: grid;
   place-items: center;
 }
@@ -43,6 +52,7 @@ export default {
   font-family: monospace;
   font-size: 5em;
   color:white;
+  
 }
 
 @keyframes typing {
