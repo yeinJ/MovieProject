@@ -15,6 +15,7 @@
       </p>
       <p>줄거리 : {{movie?.overview}}</p>
       <hr>
+      <p>좋아요 수 : {{movie?.movie_like_users_count}}</p>
       <b-button 
           v-if="this.$store.state.token"
           v-on:click="likeMovie" 
@@ -25,9 +26,9 @@
     <div class="ReviewWrite">
       <ReviewForm/>
     </div>
-    <div>
-
-      {{ movie?.reviews }}
+    <div class = 'ReviewSet'>
+      <ReviewSet
+      v-bind:reviews='movie?.reviews'/>
     </div>
   </div>
 </template>
@@ -35,13 +36,15 @@
 <script>
 import axios from 'axios'
 import ReviewForm from '@/components/Review/ReviewForm.vue'
+import ReviewSet from '@/components/Review/ReviewSet.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name : 'DetailView',
   components: {
-    ReviewForm
+    ReviewForm,
+    ReviewSet,
   },
   computed : {
     posterPath() {
@@ -105,6 +108,7 @@ export default {
       })
         .then((res) => {
           this.isLiked = res.data
+          location.reload()
         })
         .catch((err)=> {
           console.log(err)
@@ -136,5 +140,11 @@ export default {
     text-decoration: line-through;
   }
 
+.ReviewSet {
+  position: absolute;
+  float: right;
+  margin-left: 50%;
+  margin-top: 50%;
+}
 
 </style>
