@@ -1,5 +1,5 @@
 <template>
-  <slide class="p-2">
+  <slide class="img-warpper">
   <div class="movielist">
     <img v-bind:src="posterPath" v-bind:alt="movie?.title">
     <div class="moviemenu">
@@ -23,12 +23,12 @@
 
      </div> 
   </div>
-  </slide>
+</slide>
 </template>
 
 <script>
 import axios from 'axios'
-import { Slide } from 'vue-carousel';
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -37,9 +37,7 @@ export default {
   props: {
     movie:Object
   },
-  components:{
-    Slide,
-  },
+
   data() {
     return {
       isLiked: false,
@@ -148,5 +146,6 @@ export default {
   .is-liked {
     text-decoration: line-through;
   }
+
 
 </style>

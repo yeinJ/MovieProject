@@ -1,58 +1,48 @@
 <template>
   <div>
-    <hr>
+    <hr />
     <h3>좋아하는 영화</h3>
-    {{ movies }}
     <div id="app">
-    <b-container>
-      <!-- <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a> -->
-      
-      <b-row>
-        <b-col>
-          <carousel :perPage="6">
-                <LikedMovieList
-                v-for='movie in movies'
-                v-bind:key='movie.id'
-                v-bind:movie='movie'/>
-          </carousel>
-        </b-col>
-      </b-row>
-      
-      <!-- <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a> -->
-    </b-container>
-</div>
-</div>
-
-
-
+      <div class="carousel-wrapper">
+        <carousel v-bind="options">
+          <LikedMovieList
+            v-for="movie in movies"
+            v-bind:key="movie.id"
+            v-bind:movie="movie"
+          />
+          <slide v-for="i in movies" :key="i.id+10000">
+          </slide>
+        </carousel>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import LikedMovieList from '@/components/MyPage/LikedMovieList.vue'
-import { Carousel} from 'vue-carousel';
+import LikedMovieList from "@/components/MyPage/LikedMovieList.vue";
+import { Carousel, Slide } from "vue-carousel";
 
 export default {
-  props: ['movies'],
-  components: { 
+  props: ["movies"],
+  components: {
     LikedMovieList,
     Carousel,
-    // Slide,
+    Slide,
   },
-  
   data() {
     return {
-      slide: 0,
-      sliding: null
-    }
+      options: {
+        loop: true,
+        perPage: 7,
+      },
+    };
   },
-
-}
+};
 </script>
 
 <style>
-
+.carousel-wrapper {
+  padding: 40px;
+  height: 150px;
+}
 </style>

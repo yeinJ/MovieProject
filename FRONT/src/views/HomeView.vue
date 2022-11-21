@@ -6,7 +6,9 @@
       </div>
     </div>
     <div>
-      <router-link v-bind:to="{name:'RecommendView'}">Recommend</router-link>
+      <h1>추천영화목록</h1>
+      <RecommendListView/>
+      <br>
       <hr>
       <h1>전체영화목록</h1>
       <MovieTotalListView/>
@@ -17,10 +19,12 @@
 
 <script>
 import MovieTotalListView from './MovieTotalListView.vue'
+import RecommendListView from './RecommendListView.vue';
 
 export default {
   components: {
-    MovieTotalListView
+    MovieTotalListView,
+    RecommendListView,
   },
   methods : {
     morepage() {
