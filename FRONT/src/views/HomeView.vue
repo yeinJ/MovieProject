@@ -7,12 +7,12 @@
     </div>
     <div v-if="this.$store.state.token">
       <h1>추천영화목록</h1>
-      <RecommendListView/>
+      <!-- <RecommendListView/> -->
       <br>
     </div>
       <hr>
       <h1>전체영화목록</h1>
-      <MovieTotalListView/>
+      <!-- <MovieTotalListView/> -->
       <button class="btn danger" v-on:click="morepage" >More</button>
   </div>
 
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import MovieTotalListView from './MovieTotalListView.vue'
-import RecommendListView from './RecommendListView.vue';
+// import MovieTotalListView from './MovieTotalListView.vue'
+// import RecommendListView from './RecommendListView.vue';
 
 export default {
   components: {
-    MovieTotalListView,
-    RecommendListView,
+    // MovieTotalListView,
+    // RecommendListView,
   },
   methods : {
     morepage() {
