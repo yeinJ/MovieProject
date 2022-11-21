@@ -16,18 +16,24 @@
       </tr>   
       </thead>
       <tbody>
-        <ReviewList
-        v-for='review in reviews'
-        v-bind:key='review.id'
-        v-bind:review='review'/>
+        <div v-for='review in perReviews' v-bind:key="review.id">
+          <ReviewList
+          v-bind:id="review?.id"
+          v-bind:title="review?.title"
+          v-bind:user="review?.user"
+          v-bind:created_at="review?.created_at"
+          v-bind:review_like_user_count="review?.review_like_users_count"
+          />
+        </div>
       </tbody>
 
-    </table>
-    <b-pagination v-model="currentPage"
-      v-on:total-rows="rows"
+      <b-pagination
+      v-model="currentPage"
+      v-bind:total-rows="rows"
       v-bind:per-page="perPage"
-      aria-controls="my-table"></b-pagination>
-    
+      aria-controls="my-table"
+    ></b-pagination>
+    </table>
   </div>
 </template>
 
@@ -41,7 +47,8 @@ export default {
   data() {
     return {
       currentPage : 1,
-      perPage: 2, //페이지 당 보여줄 갯수
+      perPage: 15, //페이지 당 보여줄 갯수
+      items : this.reviews,
     }
 
   },
@@ -50,17 +57,18 @@ export default {
     ReviewForm,
   },
   props: ['reviews', ],
-  methods : {
+  computed : {
     rows() {
-      return this.reviews.length
-    }
+      return this.reviews?.length
   },
-  // computed : {
-  //   rows(){
-  //     return this.reviews.length
-  //   }
-  // }
-
+  perReviews() {
+    const newReviews = this.reviews?.slice(
+      this.perPage * this.currentPage - this.perPage,
+      this.perPage * this.currentPage
+    );
+    return newReviews;
+  },
+  }
 }
 </script>
 

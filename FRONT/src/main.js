@@ -6,7 +6,9 @@ import store from './store'
 import { BootstrapVue } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import VueCarousel from 'vue-carousel';
 Vue.use(BootstrapVue)
+Vue.use(VueCarousel);
 // 여기까지
 
 Vue.config.productionTip = false

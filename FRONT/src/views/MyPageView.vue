@@ -1,17 +1,28 @@
 <template>
     <div>
-        <p>아이디 : {{ userInfo?.username }}</p>
-        <p>좋아하는 영화 : {{ userInfo?.like_movies }}</p>
-        <p>좋아하는 리뷰: {{ userInfo?.like_reviews }}</p>
-        <p>작성 리뷰 : {{ userInfo?.reviews }}</p>
+        <BasicInfo
+        v-bind:username="userInfo?.username"/>
+        <LikedMovie
+        v-bind:movies="userInfo?.like_movies"/>
+        <WrittenReview
+        v-bind:reviews="userInfo?.reviews"/>
     </div>
 </template>
 
 <script>
+import BasicInfo from '@/components/MyPage/BasicInfo.vue'
+import LikedMovie from '@/components/MyPage/LikedMovie.vue'
+import WrittenReview from '@/components/MyPage/WrittenReview.vue'
+
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
+    components: {
+        BasicInfo,
+        LikedMovie,
+        WrittenReview,
+    },
     data() {
         return {
             userInfo: null,

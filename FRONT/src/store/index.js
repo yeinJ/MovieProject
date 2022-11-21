@@ -80,7 +80,11 @@ export default new Vuex.Store({
         .then((res) => {
           context.commit('SAVE_TOKEN', res.data.key)
         })
-        .catch(err => console.log(err))
+        .catch((err) => {
+          if (err.request.status === 400) {
+            alert('다시 입력하세요.')
+          }
+        })
     },
     logOut({commit}){
       commit('LOGOUT')

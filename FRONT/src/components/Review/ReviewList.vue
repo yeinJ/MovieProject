@@ -1,11 +1,11 @@
 <template>
   <tr>
-    <td>{{review?.id}}</td>
-    <td>{{review?.title}}</td>
+    <td>{{id}}</td>
+    <td>{{title}}</td>
     <!-- <td>{{review?.content}}</td> -->
-    <td>{{review?.user}}</td>
-    <td>{{review?.created_at}}</td>
-    <td>{{review?.review_like_users_count}}</td>
+    <td>{{user}}</td>
+    <td>{{created_at}}</td>
+    <td>{{review_like_users_count}}</td>
     <b-button 
         v-if="this.$store.state.token"
         v-on:click="likeReview" 
@@ -22,7 +22,7 @@ import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
-  props: ['review', ],
+  props: ['id','title','user','created_at','review_like_users_count' ],
   data() {
     return {
       isLiked: false,

@@ -9,6 +9,7 @@ import DetailView from '@/views/DetailView'
 import ReviewDetail from '@/components/Review/ReviewDetail'
 import MyPageView from '@/views/MyPageView'
 import ReviewForm from '@/components/Review/ReviewForm'
+import NotFound404 from '@/views/NotFound404'
 
 Vue.use(VueRouter)
 
@@ -57,8 +58,16 @@ const routes = [
     path: '/movies/:id/create',
     name:'ReviewForm',
     component : ReviewForm
-  }
-
+  },
+  {
+    path: '/404-not-found',
+    name: 'NotFound404',
+    component: NotFound404
+  },
+  {
+    path: '*',
+    redirect: { name: 'NotFound404' }
+  },
 ]
 
 const router = new VueRouter({
