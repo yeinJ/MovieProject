@@ -4,10 +4,10 @@
       <h1>LogIn</h1>
       <b-form  v-on:submit.prevent="logIn">
         <label for="username">User ID</label>
-          <b-form-input type="text" id="username" v-model="username"></b-form-input>
+          <b-form-input type="text" id="username" v-model.trim="username"></b-form-input>
 
         <label for="password" >Password</label>
-          <b-form-input type="password" id="password" v-model="password" aria-describedby="password-help-block"></b-form-input>
+          <b-form-input type="password" id="password" v-model.trim="password" aria-describedby="password-help-block"></b-form-input>
 
         <!-- <input type="submit" value="logIn"> -->
         <b-button class='loginbutton' type="submit" value="logIn" block variant="danger">LogIn</b-button>
@@ -38,11 +38,17 @@ export default {
       const username = this.username
       const password = this.password
 
-      const payload = {
-        username: username,
-        password: password,
+      if (!username) {
+        alert('ID를 입력하세요.')
+      } else if (!password) {
+        alert('Password를 입력하세요.')
+      } else {
+        const payload = {
+          username: username,
+          password: password,
+        }
+        this.$store.dispatch('logIn',payload)
       }
-      this.$store.dispatch('logIn',payload)
     }
   }
 

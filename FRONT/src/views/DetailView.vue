@@ -66,10 +66,11 @@ export default {
       })
        .then((res) => {
         this.movie = res.data
-        // this.posterPath = "https://i0.wp.com/image.tmdb.org/t/p/w300"+this.movie?.poster_path
        })
        .catch((err) => {
-        console.log(err)
+        if (err.response.status === 404) {
+          this.$router.push('/404-not-found')
+        }
        })
     },
     checkLiked() {
