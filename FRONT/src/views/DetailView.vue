@@ -16,12 +16,20 @@
       <p>줄거리 : {{movie?.overview}}</p>
       <hr>
       <p>좋아요 수 : {{movie?.movie_like_users_count}}</p>
-      <b-button 
-          v-if="this.$store.state.token"
-          v-on:click="likeMovie" 
-          v-bind:class="{ 'is-liked' : this.isLiked }"> 
-          Like
-      </b-button>
+      
+      <div v-if="this.$store.state.token" v-on:click="likeMovie">
+        <b-icon
+            v-if="!this.isLiked"
+            icon="heart"
+            font-scale="2.5"> 
+        </b-icon>
+        <b-icon
+            v-else
+            icon="heart-fill"
+            font-scale="2.5"> 
+        </b-icon>
+      </div>
+  
     </div>
   
     <div class = 'ReviewSet'>
@@ -84,11 +92,12 @@ export default {
         })
         .then((res) => {
           for (const like_movie of res.data.like_movies) {
-            if (like_movie.id == this.movie.id) {
+            if (like_movie.id === this.movie?.id) {
               this.isLiked = true
               break
             }
           }
+          
         })
         .catch((err) => {
           console.log(err)

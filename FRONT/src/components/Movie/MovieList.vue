@@ -7,12 +7,21 @@
         <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="primary">
           Detail
         </b-button>
-        <b-button 
-          v-if="this.$store.state.token" 
-          v-on:click="likeMovie" 
-          v-bind:class="{ 'is-liked' : this.isLiked }"> 
-          Like
-        </b-button>
+
+        <div v-if="this.$store.state.token" v-on:click="likeMovie">
+        <b-icon
+            v-if="!this.isLiked"
+            icon="heart"
+            font-scale="2.5"> 
+        </b-icon>
+        <b-icon
+            v-else
+            icon="heart-fill"
+            font-scale="2.5"> 
+        </b-icon>
+      </div>
+
+
       </div>
     </div>
   </div>
