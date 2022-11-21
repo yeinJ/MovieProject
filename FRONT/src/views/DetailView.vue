@@ -23,9 +23,7 @@
           Like
       </b-button>
     </div>
-    <div class="ReviewWrite">
-      <ReviewForm/>
-    </div>
+  
     <div class = 'ReviewSet'>
       <ReviewSet
       v-bind:reviews='movie?.reviews'/>
@@ -35,7 +33,6 @@
 
 <script>
 import axios from 'axios'
-import ReviewForm from '@/components/Review/ReviewForm.vue'
 import ReviewSet from '@/components/Review/ReviewSet.vue'
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -43,7 +40,6 @@ const API_URL = 'http://127.0.0.1:8000'
 export default {
   name : 'DetailView',
   components: {
-    ReviewForm,
     ReviewSet,
   },
   computed : {
@@ -126,15 +122,15 @@ export default {
   width:30%;
   /* transform: translate(-50%,-50%); */
 }
-.ReviewWrite{
-  position:absolute;
+/* .ReviewWrite{
+  position:relative;
   float: right;
   margin-top:10%;
   width:30%;
   margin-left : 50%;
   box-sizing: border-box;
 
-}
+} */
 
 .is-liked {
     text-decoration: line-through;
@@ -144,7 +140,6 @@ export default {
   position: absolute;
   float: right;
   margin-left: 50%;
-  margin-top: 50%;
 }
 
 </style>

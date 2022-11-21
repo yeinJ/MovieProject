@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <div>
-      <p>제목 : {{review?.title}}</p>
-      <p>내용 : {{review?.content}}</p>
-      <p>좋아요 수 : {{review?.review_like_users_count}}</p>
-      <b-button 
-          v-if="this.$store.state.token"
-          v-on:click="likeReview" 
-          v-bind:class="{ 'is-liked' : this.isLiked }"> 
-          Like
-      </b-button>
-      <hr>
-    </div>
-  </div>
+  <tr>
+    <td>{{review?.id}}</td>
+    <td>{{review?.title}}</td>
+    <!-- <td>{{review?.content}}</td> -->
+    <td>{{review?.user}}</td>
+    <td>{{review?.created_at}}</td>
+    <td>{{review?.review_like_users_count}}</td>
+    <b-button 
+        v-if="this.$store.state.token"
+        v-on:click="likeReview" 
+        v-bind:class="{ 'is-liked' : this.isLiked }"> 
+        Like
+    </b-button>
+  </tr>
+
 </template>
 
 <script>

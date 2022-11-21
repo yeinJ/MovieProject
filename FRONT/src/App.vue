@@ -59,10 +59,12 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap');
 html
 body {
   background-color:black;
-  color:white
+  color:white;
+  font-family: 'Prompt', sans-serif;
 }
 
 .nav-item{

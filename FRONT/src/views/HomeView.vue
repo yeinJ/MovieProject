@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Rubik+Microbe&display=swap');
+
 .backgroundimg{
   opacity:50%;
 
@@ -44,14 +46,17 @@ export default {
 }
 
 .typing-demo {
-  width: 24ch;
-  animation: typing 2s steps(23), blink .10s step-end infinite alternate;
+  width: 20ch;
+  animation: typing 2s steps(21), blink .10s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
   border-right: 3px solid;
   font-family: monospace;
   font-size: 5em;
   color:white;
+  font-family: 'Dancing Script', cursive;
+
+
   
 }
 

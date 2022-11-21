@@ -8,6 +8,7 @@ import LoginView from '@/views/Account/LoginView'
 import DetailView from '@/views/DetailView'
 import ReviewDetail from '@/components/Review/ReviewDetail'
 import MyPageView from '@/views/MyPageView'
+import ReviewForm from '@/components/Review/ReviewForm'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,11 @@ const routes = [
     name: 'MyPageView',
     component: MyPageView,
   },
+  {
+    path: '/movies/:id/create',
+    name:'ReviewForm',
+    component : ReviewForm
+  }
 
 ]
 
