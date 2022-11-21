@@ -5,16 +5,18 @@
         YOU MUST FIND HAPPINESS      
       </div>
     </div>
-    <div>
+    <div v-if="this.$store.state.token">
       <h1>추천영화목록</h1>
       <RecommendListView/>
       <br>
+    </div>
       <hr>
       <h1>전체영화목록</h1>
       <MovieTotalListView/>
       <button class="btn danger" v-on:click="morepage" >More</button>
-    </div>
   </div>
+
+
 </template>
 
 <script>

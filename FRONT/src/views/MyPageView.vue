@@ -51,6 +51,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div{
+    margin-bottom: 5%;
+}
 
 </style>

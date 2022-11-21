@@ -6,6 +6,7 @@
     <td>{{user}}</td>
     <td>{{created_at}}</td>
     <td>{{review_like_users_count}}</td>
+    
     <b-button 
         v-if="this.$store.state.token"
         v-on:click="likeReview" 
