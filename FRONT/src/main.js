@@ -3,11 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 // 부트스트랩 추가
-import { BootstrapVue } from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import VueCarousel from 'vue-carousel';
 Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 Vue.use(VueCarousel);
 // 여기까지
 
