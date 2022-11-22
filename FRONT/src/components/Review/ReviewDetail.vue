@@ -8,15 +8,16 @@
         bodyBgVariant="dark"
         headerBgVariant="dark"
         footerBgVariant="dark"
+        v-on:hide="resetModalData"
       >
         <form v-on:submit.prevent="createMovieReview">
           <label for="title" text-color="black">제목</label>
           <input
             type="text"
-            :value="review.title"
             class="form-control"
             id="title"
             placeholder="Enter Title"
+            v-model="title"
           />
 
           <br />
@@ -25,22 +26,33 @@
             class="form-control"
             id="content"
             rows="3"
-            :value="review.content"
+            v-model="content"
           ></textarea>
+          
+          <b-button
+            block
+            variant="danger"
+            class="btn btn-danger mt-3"
+            id="submit"
+            v-on:click="modifyReview"
+            >Modify</b-button
+          >
+        
           <b-button
             type="submit"
             block
             variant="danger"
             class="btn btn-danger mt-3"
-            id="submit"
-            >Modify</b-button
+            v-on:click="deleteReview"
+            >Delete</b-button
           >
+        
         </form>
         <template #modal-footer="{ hide }">
           <b-button
             size="sm"
             variant="outline-secondary"
-            @click="hide('forget')"
+            v-on:click="hide('forget')"
           >
             Close
           </b-button>
@@ -51,41 +63,65 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// // 버려질 수 있음
-// const API_URL = 'http://127.0.0.1:8000'
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   data() {
-    return {};
+    return {
+      title: '',
+      content: '',
+    };
   },
   props: ["review"],
-  created() {
-    // this.getReviewDetail()
-  },
   computed: {
     modalId() {
       return `modal-detail-${this.review.id}`
     }
   },
+  created() {
+    this.title = this.review.title
+    this.content = this.review.content
+  },
   methods: {
-    // getReviewDetail() {
-    //   axios({
-    //     method : 'get',
-    //     url : `${API_URL}/api/v1/reviews/${this.$route.params.review_id}/`,
-    //     headers: {
-    //         Authorization: `Token ${this.$store.state.token}`
-    //     }
-    //   })
-    //    .then((res) => {
-    //     this.review = res.data
-    //    })
-    //    .catch((err) => {
-    //     if (err.response.status === 404) {
-    //       this.$router.push('/404-not-found')
-    //     }
-    //    })
-    // },
+    modifyReview() {
+      axios({
+        method: 'put',
+        data: {
+          'title': this.title,
+          'content': this.content,
+        },
+        url: `${API_URL}/api/v1/reviews/${this.review.id}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            location.reload()
+          }
+        })
+        .catch((err) => console.log(err))
+    },
+    deleteReview() {
+      axios({
+        method: 'delete',
+        url: `${API_URL}/api/v1/reviews/${this.review.id}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then((res) => {
+        if (res.status === 204) {
+          location.reload()
+        }
+      })
+      .catch((err) => {console.log(err)})
+    },
+    resetModalData() {
+      this.title = this.review.title;
+      this.content = this.review.content;
+    }
   },
 };
 </script>

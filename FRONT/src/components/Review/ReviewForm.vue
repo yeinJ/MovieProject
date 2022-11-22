@@ -22,9 +22,7 @@
         </template>
       </b-modal>
     </div>
-
   </div>
-  
 </template>
 
 <script>
