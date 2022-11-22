@@ -1,18 +1,13 @@
 <template>
   <div class="board-list">
     <div class="common-buttons">
-      <ReviewForm />
+      
       <!-- <b-button v-bind:to="{name :'ReviewForm'}">후기 작성</b-button> -->
     </div>
     <table id="my-table" class="table">
       <thead>
-        <!-- <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>날짜</th>
-        <th>좋아요수</th>
-      </tr>    -->
+        <th>Review</th>
+        <th><ReviewForm /></th> 
       </thead>
       <tbody>
         <div v-for="review in perReviews" v-bind:key="review.id">
@@ -104,5 +99,6 @@ export default {
 <style scoped>
 .table {
   color: white;
+  margin-top:2%;
 }
 </style>

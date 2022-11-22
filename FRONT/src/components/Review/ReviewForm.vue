@@ -1,7 +1,6 @@
 <template>
   <div>
-    <br>
-    <b-button v-on:click="$bvModal.show('modal-scoped')">게시물 작성</b-button>
+    <b-button v-on:click="$bvModal.show('modal-scoped')">리뷰 작성</b-button>
     <div class="modal-content">
       <b-modal id="modal-scoped" 
       bodyBgVariant="dark"
@@ -90,5 +89,10 @@ export default {
 </script>
 
 <style scoped>
+div{
+  position:relative;
+  margin: 0;
+  padding: 0;
+}
 
 </style>

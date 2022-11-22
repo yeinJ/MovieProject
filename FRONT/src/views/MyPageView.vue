@@ -54,6 +54,7 @@ export default {
 <style scoped>
 div{
     margin-bottom: 5%;
+    padding : 2%;
 }
 
 </style>
