@@ -73,6 +73,10 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 h3{
   font-family: 'Black Han Sans', sans-serif;
+  position : absolute;
+  left:4%;
+  
+  padding-top: 3%;
 
 }
 .recommend{
