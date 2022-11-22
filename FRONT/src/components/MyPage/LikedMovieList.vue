@@ -1,34 +1,39 @@
 <template>
-  <slide class="p-2">
+  <slide class="img-warpper">
   <div class="movielist">
     <img v-bind:src="posterPath" v-bind:alt="movie?.title">
     <div class="moviemenu">
       <b-card-title class='movietitle'>{{movie.title}}</b-card-title>
-      <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="primary">
+      <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="danger">
         Detail
       </b-button>
 
-      <div v-if="this.$store.state.token" v-on:click="likeMovie">
+      <div v-if="this.$store.state.token" v-on:click="likeMovie" class="heart">
         <b-icon
             v-if="!this.isLiked"
-            icon="heart"
-            font-scale="2.5"> 
+            icon="suit-heart"
+            font-scale="2.5"
+            class="py-5 mb-2"> 
         </b-icon>
         <b-icon
             v-else
-            icon="heart-fill"
-            font-scale="2.5"> 
+            icon="suit-heart-fill"
+            font-scale="2.5"
+            class="py-5 mb-2"
+            variant="danger"
+
+            > 
         </b-icon>
       </div>
 
      </div> 
   </div>
-  </slide>
+</slide>
 </template>
 
 <script>
 import axios from 'axios'
-import { Slide } from 'vue-carousel';
+
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -37,9 +42,7 @@ export default {
   props: {
     movie:Object
   },
-  components:{
-    Slide,
-  },
+
   data() {
     return {
       isLiked: false,
@@ -148,5 +151,12 @@ export default {
   .is-liked {
     text-decoration: line-through;
   }
+
+  .heart {
+    position:absolute;
+    left : 80%;
+    scale: 150%;
+
+ }
 
 </style>

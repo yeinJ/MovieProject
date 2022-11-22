@@ -4,24 +4,9 @@
       <img v-bind:src="posterPath" v-bind:alt="movie?.title">
       <div class="moviemenu">
         <b-card-title class='movietitle'>{{movie.title}}</b-card-title>
-        <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="primary">
+        <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="danger">
           Detail
         </b-button>
-
-        <div v-if="this.$store.state.token" v-on:click="likeMovie">
-        <b-icon
-            v-if="!this.isLiked"
-            icon="heart"
-            font-scale="2.5"> 
-        </b-icon>
-        <b-icon
-            v-else
-            icon="heart-fill"
-            font-scale="2.5"> 
-        </b-icon>
-      </div>
-
-
       </div>
     </div>
   </div>
@@ -39,11 +24,9 @@ export default {
   },
   data() {
     return {
-      isLiked: false,
     }
   },
   created() {
-    this.checkLiked()
   },
   computed : {
     posterPath() {
@@ -51,28 +34,6 @@ export default {
     }
   },
   methods: {
-    checkLiked() {
-      if (this.$store.state.token) {
-        axios({
-          method: 'get',
-          url: `${API_URL}/mypage/`,
-          headers: {
-            Authorization: `Token ${this.$store.state.token}`
-          }
-        })
-        .then((res) => {
-          for (const movie of res.data.like_movies) {
-            if (movie.id == this.movie.id) {
-              this.isLiked = true
-              break
-            }
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-      }
-    },
     likeMovie() {
       axios({
         method : 'post',

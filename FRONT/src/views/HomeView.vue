@@ -5,22 +5,28 @@
         YOU MUST FIND HAPPINESS      
       </div>
     </div>
-    <div>
-      <router-link v-bind:to="{name:'RecommendView'}">Recommend</router-link>
+    <div v-if="this.$store.state.token">
+      <h1>추천영화목록</h1>
+      <RecommendListView/>
+      <br>
+    </div>
       <hr>
       <h1>전체영화목록</h1>
       <MovieTotalListView/>
       <button class="btn danger" v-on:click="morepage" >More</button>
-    </div>
   </div>
+
+
 </template>
 
 <script>
 import MovieTotalListView from './MovieTotalListView.vue'
+import RecommendListView from './RecommendListView.vue';
 
 export default {
   components: {
-    MovieTotalListView
+    MovieTotalListView,
+    RecommendListView,
   },
   methods : {
     morepage() {
@@ -33,7 +39,13 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Rubik+Microbe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
+h1{
+  margin-left:3%;
+  font-family: 'Black Han Sans', sans-serif;
+
+}
 .backgroundimg{
   opacity:50%;
 

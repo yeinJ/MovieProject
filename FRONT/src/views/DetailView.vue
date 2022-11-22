@@ -1,9 +1,23 @@
 <template>
   <div>
     <div class="MovieDetail">
-      <h1>Detail</h1>
+      <h1 style="width:80%; ">{{movie?.title}}</h1>
+      <div class='likemovie' v-if="this.$store.state.token" v-on:click="likeMovie">
+        <b-icon
+            v-if="!this.isLiked"
+            icon="suit-heart"
+            font-scale="2.5"> 
+        </b-icon>
+        <b-icon
+            v-else
+            icon="suit-heart-fill"
+            font-scale="2.5"
+            variant="danger"
+            > 
+        </b-icon>
+      </div>
       <img :src="posterPath" :alt="movie?.title">
-      <p>영화 이름 : {{movie?.title}}</p>
+      <!-- <p>영화 이름 : {{movie?.title}}</p> -->
       <p>평점 : {{movie?.vote_average}}</p>
       <p>관객수 : {{movie?.popularity}}</p>
       <p>개봉일 : {{movie?.release_date}}</p>
@@ -13,22 +27,24 @@
           {{genre.name}}
         </span>
       </p>
-      <p>줄거리 : {{movie?.overview}}</p>
+      <p v-if="movie?.overview">줄거리 : {{movie?.overview}}</p>
       <hr>
-      <p>좋아요 수 : {{movie?.movie_like_users_count}}</p>
+      <!-- <p>좋아요 수 : </p> -->
       
-      <div v-if="this.$store.state.token" v-on:click="likeMovie">
+      <!-- <div class='likemovie' v-if="this.$store.state.token" v-on:click="likeMovie">
         <b-icon
             v-if="!this.isLiked"
-            icon="heart"
-            font-scale="2.5"> 
+            icon="suit-heart"
+            font-scale="1.5"> 
         </b-icon>
         <b-icon
             v-else
-            icon="heart-fill"
-            font-scale="2.5"> 
+            icon="suit-heart-fill"
+            font-scale="1.5"
+            variant="danger"
+            > 
         </b-icon>
-      </div>
+      </div> -->
   
     </div>
   
@@ -128,8 +144,12 @@ export default {
 .MovieDetail{
   position: relative;
   float: left;
+  margin-top:1%;
   margin-left: 10%;
   width:30%;
+  border-radius: 30px;
+  border : 1px solid red;
+  padding : 3%;
   /* transform: translate(-50%,-50%); */
 }
 /* .ReviewWrite{
@@ -150,6 +170,12 @@ export default {
   position: absolute;
   float: right;
   margin-left: 50%;
+}
+.likemovie{
+  position: absolute;
+  left:85%;
+  top:7%;
+
 }
 
 </style>
