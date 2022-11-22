@@ -21,7 +21,6 @@
             font-scale="2.5"
             class="py-5 mb-2"
             variant="danger"
-
             > 
         </b-icon>
       </div>

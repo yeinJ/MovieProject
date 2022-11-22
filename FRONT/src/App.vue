@@ -4,7 +4,9 @@
         <div class="container-fluid">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link v-bind:to="{name:'HomeView'}" class="nav-link">Home</router-link>
+              <router-link v-bind:to="{name:'HomeView'}" class="nav-link">
+                <img src="@/../public/hypy.png" alt="Hypy">
+              </router-link>
             </li>
             <div v-if="!this.$store.state.token">
               <!-- <li class="nav-item">
@@ -66,8 +68,12 @@ html
 body {
   background-color:rgb(8, 8, 14);
   color:white;
-  /* font-family: 'Prompt', sans-serif; */
+  font-family: 'Prompt', sans-serif;
   /* font-family: 'Black Han Sans', sans-serif; */
+}
+
+.nav-link img{
+  width : 60px;
 }
 
 .nav-item{

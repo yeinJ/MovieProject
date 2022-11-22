@@ -4,7 +4,9 @@
       <div class="typing-demo">
         YOU MUST FIND HAPPINESS      
       </div>
+  
     </div>
+    
     <div v-if="this.$store.state.token">
       <h1>추천영화목록</h1>
       <RecommendListView/>
@@ -57,6 +59,7 @@ h1{
   place-items: center;
 }
 
+
 .typing-demo {
   width: 20ch;
   animation: typing 2s steps(21), blink .10s step-end infinite alternate;
@@ -67,6 +70,7 @@ h1{
   font-size: 5em;
   color:white;
   font-family: 'Dancing Script', cursive;
+  /* font-family: 'Prompt', sans-serif; */
 
 
   

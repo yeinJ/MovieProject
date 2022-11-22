@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <div class="MovieDetail">
-      <h1 style="width:80%; ">{{movie?.title}}</h1>
+  <div class="MovieDetail">
+    <div>
+      <h1>{{movie?.title}}</h1>
+      <br>
       <div class='likemovie' v-if="this.$store.state.token" v-on:click="likeMovie">
         <b-icon
             v-if="!this.isLiked"
@@ -18,6 +19,8 @@
       </div>
       <img :src="posterPath" :alt="movie?.title">
       <!-- <p>영화 이름 : {{movie?.title}}</p> -->
+      <br>
+      <br>
       <p>평점 : {{movie?.vote_average}}</p>
       <p>관객수 : {{movie?.popularity}}</p>
       <p>개봉일 : {{movie?.release_date}}</p>
@@ -29,22 +32,6 @@
       </p>
       <p v-if="movie?.overview">줄거리 : {{movie?.overview}}</p>
       <hr>
-      <!-- <p>좋아요 수 : </p> -->
-      
-      <!-- <div class='likemovie' v-if="this.$store.state.token" v-on:click="likeMovie">
-        <b-icon
-            v-if="!this.isLiked"
-            icon="suit-heart"
-            font-scale="1.5"> 
-        </b-icon>
-        <b-icon
-            v-else
-            icon="suit-heart-fill"
-            font-scale="1.5"
-            variant="danger"
-            > 
-        </b-icon>
-      </div> -->
   
     </div>
   
@@ -142,39 +129,30 @@ export default {
 
 <style scoped>
 .MovieDetail{
-  position: relative;
-  float: left;
-  margin-top:1%;
+  margin: auto;
+  margin-top : 3%;
   margin-left: 10%;
-  width:30%;
+  margin-right:10%;
+  margin-bottom : 10%;
   border-radius: 30px;
   border : 1px solid red;
   padding : 3%;
-  /* transform: translate(-50%,-50%); */
+  text-align: center;
 }
-/* .ReviewWrite{
-  position:relative;
-  float: right;
-  margin-top:10%;
-  width:30%;
-  margin-left : 50%;
-  box-sizing: border-box;
-
-} */
 
 .is-liked {
     text-decoration: line-through;
   }
 
 .ReviewSet {
-  position: absolute;
-  float: right;
-  margin-left: 50%;
+  position: relative;
+  margin-left : 10%;
+  margin-right : 10%;
+  margin-bottom : 10%;
 }
 .likemovie{
   position: absolute;
-  left:85%;
-  top:7%;
+  left:80%;
 
 }
 

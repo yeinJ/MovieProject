@@ -1,8 +1,7 @@
 <template>
-  <!-- 버려질 수 있어요 -->
   <div>
-    <b-button v-on:click="$bvModal.show(modalId)">Detail</b-button>
-    <div v-bind:class = modalId >
+      <button class="custom-btn btn-7" v-on:click="$bvModal.show(modalId)">Detail</button>
+      <div v-bind:class = modalId >
       <b-modal
         v-bind:id = modalId
         bodyBgVariant="dark"
@@ -126,5 +125,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+.btn-7 {
+  background: #000;
+  color: #fff;
+  border: none;
+  transition: all 0.3s linear;
+}
+.btn-7:hover {
+  background: transparent;
+  color: #000;
+}
+
+.btn-7:hover:before,
+.btn-7:hover:after {
+  background-color: #000;
+}
 </style>

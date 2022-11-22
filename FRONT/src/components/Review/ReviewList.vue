@@ -1,22 +1,23 @@
 <template>
-  <span style="width:100%">
-    <td>{{ this.review.review_like_users_count }}</td>
-    <td>{{ this.review.title }}</td>
-    <!-- <td>{{review?.content}}</td> -->
-    <td>{{ created_date }}</td>
+    <div class="reviewList">
+      <p>{{ this.review.review_like_users_count }}</p>
+      <p>{{ this.review.title }}</p>
+      <!-- <td>{{review?.content}}</td> -->
+      <p>{{ created_date }}</p>
+      <div
+        v-if="this.$store.state.token"
+        v-on:click="likeReview"
+        v-bind:class="{ 'is-liked': this.isLiked }"
+      >
+        Like
+      </div>
+      
+      <ReviewDetail 
+      class="review_Detail"
+      v-bind:review="review" />
+      <b-icon class="btn-x h2 mb-2" icon="x" v-on:click="deleteReview"> Delete </b-icon>
+    </div>
 
-    <b-button v-on:click="deleteReview"> Delete </b-button>
-
-    <b-button
-      v-if="this.$store.state.token"
-      v-on:click="likeReview"
-      v-bind:class="{ 'is-liked': this.isLiked }"
-    >
-      Like
-    </b-button>
-
-    <ReviewDetail v-bind:review="review" />
-  </span>
 </template>
 
 <script>
@@ -106,13 +107,33 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.reviewList{
+  padding:1%;
+}
 .is-liked {
   text-decoration: line-through;
 }
 
-tr:hover {
+/* p:hover {
   background-color: gray;
   opacity: 70%;
+} */
+
+.review_Detail{
+  display: inline-block;
+
 }
+
+.btn-x {
+  background: #000;
+  color: #fff;
+  border: none;
+  transition: all 0.3s linear;
+}
+.btn-x:hover {
+  background: transparent;
+  color: #000;
+}
+
 </style>

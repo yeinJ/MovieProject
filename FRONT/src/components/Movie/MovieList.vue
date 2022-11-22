@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
-const API_URL = 'http://127.0.0.1:8000'
+// const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name:'MovieList',
@@ -34,38 +34,43 @@ export default {
     }
   },
   methods: {
-    likeMovie() {
-      axios({
-        method : 'post',
-        url : `${API_URL}/api/v1/movies/${this.movie.id}/like/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`
-        }
-      })
-        .then((res) => {
-          this.isLiked = res.data
-        })
-        .catch((err)=> {
-          console.log(err)
-        })
-    },
+    // likeMovie() {
+    //   axios({
+    //     method : 'post',
+    //     url : `${API_URL}/api/v1/movies/${this.movie.id}/like/`,
+    //     headers: {
+    //       Authorization: `Token ${this.$store.state.token}`
+    //     }
+    //   })
+    //     .then((res) => {
+    //       this.isLiked = res.data
+    //     })
+    //     .catch((err)=> {
+    //       console.log(err)
+    //     })
+    // },
   }
 }
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap');
+
   img{
     width: 170px;
     height: 234px;
     border-radius: 10px
   }
   .movietitle{
-    font-family: Georgia, "Malgun Gothic", serif;
+    font-family: 'Prompt', sans-serif;
     font-size:12px;
     color:white;
   }
   .movielist{
-    padding:10px;
+    /* padding-left:7%; */
+    /* padding-right: 15%; */
+    padding-top :30%;
+
     position:relative;
   }
   .moviemenu{
@@ -76,7 +81,8 @@ export default {
   }
   .movielist:hover .moviemenu{
     display:block;
-    padding: 5px 10px;
+    padding: 0% 0%;
+    margin-top : 10%;
     text-align: center;
     position: absolute;
     top: 50%;

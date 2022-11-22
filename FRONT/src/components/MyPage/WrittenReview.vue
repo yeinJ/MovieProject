@@ -7,7 +7,6 @@
     <table cellpadding="0" cellspacing="0" border="0">
       <thead>
         <tr>
-          <th>Page</th>
           <th>id</th>
           <th>title</th>
           <th>content</th>
@@ -20,10 +19,12 @@
       <tbody>
 
         <tr v-for="review in reviews" v-bind:key="review.id">
-          <router-link v-bind:to="{name: 'DetailView', params:{id: review.movie}}">go to Page</router-link>
+          <!-- <router-link v-bind:to="{name: 'DetailView', params:{id: review.movie}}">go to Page</router-link> -->
           <td>{{review.id}}</td>
           <td>{{review.title}} </td>
           <td>{{review.content}}</td>
+          <router-link v-bind:to="{name: 'DetailView', params:{id: review.movie}}"></router-link>
+          
         </tr>
       </tbody>
     </table>
