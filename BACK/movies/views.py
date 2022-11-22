@@ -53,17 +53,17 @@ def movie_recommend(request):
         print(len(recommend_movies_idx))
 
         recommend_movies = []
-        for idx in recommend_movies_idx[:15]:
-            try:
-                movie = get_object_or_404(Movie, pk=idx)
-                recommend_movies.append(movie)
-                print(movie)
-            except Exception as e:
-                print(idx)
+        # for idx in recommend_movies_idx[:15]:
+        #     try:
+        #         movie = get_object_or_404(Movie, pk=idx)
+        #         recommend_movies.append(movie)
+        #         print(movie)
+        #     except Exception as e:
+        #         print(idx)
 
-        serializer = MovieSerializer(recommend_movies, many=True)
-        return Response(serializer.data)
-        # return Response(True)
+        # serializer = MovieSerializer(recommend_movies, many=True)
+        # return Response(serializer.data)
+        return Response(True)
     
     else:
         return Response(False)
