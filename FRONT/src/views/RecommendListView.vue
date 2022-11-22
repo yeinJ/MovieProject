@@ -2,10 +2,11 @@
   <div class="recommend">
     <hr/>
     <div>
-      <div class="carousel-wrapper">
+      <h3 class='info' v-if="this.info">{{ this.info }}</h3>
+      <div v-else class="carousel-wrapper">
         <carousel v-bind="options">
           <LikedMovieList
-            v-for="movie in movies"
+            v-for="movie in this.movies"
             v-bind:key="movie.id"
             v-bind:movie="movie"
           />
@@ -18,6 +19,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+const API_URL = 'http://127.0.0.1:8000'
+
 import LikedMovieList from "@/components/MyPage/LikedMovieList.vue";
 import { Carousel, Slide } from "vue-carousel";
 
@@ -33,20 +37,34 @@ export default {
         loop: true,
         perPage: 7,
       },
+      movies: [],
+      info: null,
     };
   },
-  computed: {
-     movies() {
-      return this.$store.state.movies
-     }
-  },
   created() {
-    this.getMovies()
+    this.getRecommendMovies()
   },
   methods: {
-    getMovies() {
-      this.$store.dispatch('getMovies')
-    },
+    getRecommendMovies() {
+      axios({
+          method: 'get',
+          url: `${API_URL}/api/v1/movies/recommended/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          }
+        })
+        .then((res) => {
+          console.log(res.data)
+          if (res.data) {
+            this.movies = res.data
+          } else {
+            this.info = '영화를 찜하시면, 취향에 맞는 영화를 추천해드리겠습니다.'
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }
 };
 </script>
@@ -58,5 +76,11 @@ export default {
 .carousel-wrapper {
   padding: 40px;
   height: 150px;
+}
+
+.info {
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 </style>

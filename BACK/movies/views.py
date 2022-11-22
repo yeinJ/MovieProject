@@ -14,16 +14,17 @@ import pandas as pd
 import numpy as np
 
 
-def find_sim_movie(idxs, sorted_ind, top_n):
-    recommend_movies_idx = []
+def find_sim_movie(like_movie_ids, movie_ids, sorted_ind, top_n):
+    recommend_movies_ids = []
 
-    for idx in idxs:
+    for id in like_movie_ids:
         # sorted_ind 인자로 입력된 genre_sim_sorted_ind 객체에서 코사인 유사도 순으로 top_n 개의 index 추출
+        idx = movie_ids.index(id)
         similar_indexes = sorted_ind[idx, :(top_n)]
         similar_indexes = similar_indexes.reshape(-1).tolist()
-        recommend_movies_idx += similar_indexes
+        recommend_movies_ids += [movie_ids[x] for x in similar_indexes if (movie_ids[x] not in recommend_movies_ids)]
 
-    return recommend_movies_idx
+    return recommend_movies_ids
 
 
 # # 추천 영화 목록 조회
@@ -31,39 +32,46 @@ def find_sim_movie(idxs, sorted_ind, top_n):
 @permission_classes([IsAuthenticated])
 def movie_recommend(request):
     serializer = UserSerializer(request.user)
-    like_movies_idx = [movie['id'] for movie in serializer.data['like_movies']]
-    print(like_movies_idx)
+    like_movies_id = [movie['id'] for movie in serializer.data['like_movies']]
+    print('like_movies: ', like_movies_id)
 
-    if len(like_movies_idx) > 0:
-    #     # simi_path = 'C:/Users/multicampus/Desktop/FINAL_PJT/PJT_GITHUB/BACK/movies/fixtures/sim_df.csv'
-        simi_path = 'C:/Users/82103/Desktop/SSAFY/1학기_관통/GITHUB/BACK/movies/fixtures/sim_df.csv'
+    # 유저가 찜한 영화 목록이 있는 경우
+    if len(like_movies_id) > 0:
+        # 1. 유저가 찜한 영화들의 장르 기반 코사인 유사도를 계산하여, 추천 영화 아이디 추출 (100개 정도)
 
-        simi_df = pd.read_csv(simi_path, encoding='utf-8')
-        simi_df = simi_df.set_index('movie_id', drop=True)
+        sim_path = 'C:/Users/multicampus/Desktop/FINAL_PJT/PJT_GITHUB/BACK/movies/fixtures/sim_df.csv'
+        # sim_path = 'C:/Users/82103/Desktop/SSAFY/1학기_관통/GITHUB/BACK/movies/fixtures/sim_df.csv'
 
-        simi_list = simi_df.values.tolist()
-        simi_np = np.array(simi_list)
-        simi_sorted_ind = simi_np.argsort()[:, ::-1]
+        sim_df = pd.read_csv(sim_path, encoding='utf-8')
+        sim_df = sim_df.set_index('movie_id', drop=True)
 
-        n = max(100 // len(like_movies_idx), 1)
-        recommend_movies_idx = find_sim_movie(like_movies_idx, simi_sorted_ind, n)
-        recommend_movies_idx = [idx for idx in recommend_movies_idx if idx not in like_movies_idx]
+        movie_ids = sim_df.index.tolist()
+
+        sim_list = sim_df.values.tolist()
+        sim_np = np.array(sim_list)
     
-        print(recommend_movies_idx)
-        print(len(recommend_movies_idx))
+        genre_sorted_ind = sim_np.argsort()[:, ::-1]
 
+        
+        n = max(100 // len(like_movies_id), 1)
+        recommend_movies_ids = find_sim_movie(like_movies_id, movie_ids, genre_sorted_ind, n)
+        recommend_movies_ids = [id for id in recommend_movies_ids if id not in like_movies_id]
+
+        # 2. 추천 영화 아이디를 가진 영화 객체 저장
         recommend_movies = []
-        # for idx in recommend_movies_idx[:15]:
-        #     try:
-        #         movie = get_object_or_404(Movie, pk=idx)
-        #         recommend_movies.append(movie)
-        #         print(movie)
-        #     except Exception as e:
-        #         print(idx)
+        for id in recommend_movies_ids:
+            try:
+                movie = Movie.objects.get(id=id)
+                recommend_movies.append(movie)
+            except Exception as e:
+                print(e)
+                print(id)
 
-        # serializer = MovieSerializer(recommend_movies, many=True)
-        # return Response(serializer.data)
-        return Response(True)
+        # 3. vote_average를 기준으로 내림차순 정렬하여 상위 35개 영화 정보 반환
+        sorted_recommend_movies = sorted(recommend_movies, key=lambda movie: movie.vote_average, reverse=True)[:35]
+        serializer = MovieSerializer(sorted_recommend_movies, many=True)
+        return Response(serializer.data)
+
     
     else:
         return Response(False)
