@@ -39,7 +39,13 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Rubik+Microbe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
 
+h1{
+  margin-left:3%;
+  font-family: 'Black Han Sans', sans-serif;
+
+}
 .backgroundimg{
   opacity:50%;
 

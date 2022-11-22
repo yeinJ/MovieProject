@@ -7,9 +7,7 @@
       bodyBgVariant="dark"
       headerBgVariant="dark"
       footerBgVariant="dark"
-      
       >
-
         <form v-on:submit.prevent="createMovieReview">
             <label for="title" text-color="black">제목</label>
             <input type="text" class="form-control" id="title" v-model.trim="title" placeholder="Enter Title">
@@ -18,14 +16,7 @@
             <textarea class="form-control" v-model.trim="content" id="content" rows="3"></textarea>
             <b-button type="submit" block variant="danger" class="btn btn-danger mt-3" id="submit">Submit</b-button>
         </form>
-
-
         <template #modal-footer="{ hide }">
-          <!-- Emulate built in modal footer ok and cancel button actions -->
-          <!-- <b-button size="sm" variant="danger" @click="cancel()">
-            Cancel
-          </b-button> -->
-          <!-- Button with custom close trigger value -->
           <b-button size="sm" variant="outline-secondary" @click="hide('forget')">
             Close
           </b-button>
@@ -33,21 +24,6 @@
       </b-modal>
     </div>
 
-    <!-- <h1>게시글 작성</h1>
-    <form v-on:submit.prevent="createMovieReview">
-        <label for="title">제목</label>
-        <input type="text" class="form-control" id="title" v-model.trim="title" placeholder="Enter Title">
-        <br>
-        <label for="content">내용</label>
-        <textarea class="form-control" v-model.trim="content" id="content" rows="3"></textarea>
-        <b-button type="submit" block variant="danger" class="btn btn-danger mt-3" id="submit">Submit</b-button>
-    </form> -->
-
-
-    <!-- <div class="btn">
-      <b-button variant="dark" @click="goList">메인으로</b-button>
-      <b-button v-on:click="cancle">취소</b-button>
-    </div> -->
   </div>
   
 </template>

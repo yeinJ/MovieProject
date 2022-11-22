@@ -60,11 +60,14 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+
 html
 body {
-  background-color:black;
+  background-color:rgb(8, 8, 14);
   color:white;
-  font-family: 'Prompt', sans-serif;
+  /* font-family: 'Prompt', sans-serif; */
+  /* font-family: 'Black Han Sans', sans-serif; */
 }
 
 .nav-item{

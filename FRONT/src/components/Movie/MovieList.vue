@@ -4,7 +4,7 @@
       <img v-bind:src="posterPath" v-bind:alt="movie?.title">
       <div class="moviemenu">
         <b-card-title class='movietitle'>{{movie.title}}</b-card-title>
-        <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="primary">
+        <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="danger">
           Detail
         </b-button>
       </div>

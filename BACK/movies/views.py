@@ -38,9 +38,7 @@ def movie_recommend(request):
     # 유저가 찜한 영화 목록이 있는 경우
     if len(like_movies_id) > 0:
         # 1. 유저가 찜한 영화들의 장르 기반 코사인 유사도를 계산하여, 추천 영화 아이디 추출 (100개 정도)
-
-        sim_path = 'C:/Users/multicampus/Desktop/FINAL_PJT/PJT_GITHUB/BACK/movies/fixtures/sim_df.csv'
-        # sim_path = 'C:/Users/82103/Desktop/SSAFY/1학기_관통/GITHUB/BACK/movies/fixtures/sim_df.csv'
+        sim_path = 'movies/fixtures/sim_df.csv'
 
         sim_df = pd.read_csv(sim_path, encoding='utf-8')
         sim_df = sim_df.set_index('movie_id', drop=True)

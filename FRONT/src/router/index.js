@@ -45,7 +45,7 @@ const routes = [
     component: DetailView,
   },
   {
-    path: '/movies/:id/reviews',
+    path: '/movies/:id/reviews/:review_id',
     name: 'ReviewDetailView',
     component: ReviewDetail,
   },

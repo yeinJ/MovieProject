@@ -71,16 +71,19 @@ export default {
 
 <style scoped>
 .recommend{
-  margin-bottom: 150px;
+  margin-bottom: 200px;
+  
 }
 .carousel-wrapper {
-  padding: 40px;
+  padding: 50px;
   height: 150px;
 }
+
 
 .info {
   display:flex;
   justify-content:center;
   align-items:center;
 }
+
 </style>
