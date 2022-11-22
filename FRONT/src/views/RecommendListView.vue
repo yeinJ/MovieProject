@@ -70,6 +70,11 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
+h3{
+  font-family: 'Black Han Sans', sans-serif;
+
+}
 .recommend{
   margin-bottom: 200px;
   
