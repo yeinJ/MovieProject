@@ -30,14 +30,14 @@
           {{genre.name}}
         </span>
       </p>
-      <p v-if="movie?.overview">줄거리 : {{movie?.overview}}</p>
+      <p class='overview' v-if="movie?.overview">줄거리 : {{movie?.overview}}</p>
       <hr>
   
     </div>
   
     <div class = 'ReviewSet'>
       <ReviewSet
-      v-bind:reviews='movie?.reviews'/>
+      v-bind:reviews='sortedReviews'/>
     </div>
   </div>
 </template>
@@ -56,6 +56,21 @@ export default {
   computed : {
     posterPath() {
       return "https://i0.wp.com/image.tmdb.org/t/p/w300"+this.movie?.poster_path
+    },
+    sortedReviews() {
+      let movieReviews = this.movie?.reviews
+      if(movieReviews){
+        return movieReviews.sort(function(a, b) {
+          if (a.review_like_users_count < b.review_like_users_count) {
+            return 1;
+          }
+          if (a.review_like_users_count > b.review_like_users_count) {
+            return -1;
+          }
+          return 0;
+        })
+      }
+      return null;
     }
   },
   data() {
@@ -154,6 +169,10 @@ export default {
   position: absolute;
   left:80%;
 
+}
+
+.overview{
+  padding: 0% 10% 0% 10%;
 }
 
 </style>

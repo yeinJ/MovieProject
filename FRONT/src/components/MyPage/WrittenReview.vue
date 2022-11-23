@@ -2,30 +2,36 @@
   <div>
     <hr>
     <h3>작성한 리뷰</h3>
-    <div class="tbl-header">
-
-    <table cellpadding="0" cellspacing="0" border="0">
+    <div class="header">
+    <table>
       <thead>
         <tr>
-          <th>id</th>
-          <th>title</th>
-          <th>content</th>
+          <!-- <th>Review List</th> -->
+          <th class="trtitle">title</th>
+          <th class="trcontent">content</th>
         </tr>
       </thead>
     </table>
   </div>
-  <div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
+  <div class="content">
+    <table>
       <tbody>
+        <!-- <td>{{review}}</td> -->
+        <div v-for="review in reviews" v-bind:key="review.id">
+          <div class="balloon-left">
+            <div class="leftmovie">
+              
+              <router-link class="h4 mb-2" v-bind:to="{name: 'DetailView', params:{id: review.movie}}">
+                <b-icon icon="search"></b-icon>
+              </router-link>
+            </div>
+            <!-- <div>{{review.id}}</div> -->
+            <div class="centertitle">{{review.title}} </div>
+            <div class="rightcontent">{{review.content}}</div>
+          </div>
 
-        <tr v-for="review in reviews" v-bind:key="review.id">
-          <!-- <router-link v-bind:to="{name: 'DetailView', params:{id: review.movie}}">go to Page</router-link> -->
-          <td>{{review.id}}</td>
-          <td>{{review.title}} </td>
-          <td>{{review.content}}</td>
-          <router-link v-bind:to="{name: 'DetailView', params:{id: review.movie}}"></router-link>
-          
-        </tr>
+        </div>
+
       </tbody>
     </table>
   </div>
@@ -60,35 +66,118 @@ h1{
 }
 table{
   width:100%;
-  table-layout: fixed;
 }
-.tbl-header{
-  background-color: rgba(255,255,255,0.3);
+.header{
+  background-color: rgba(168, 168, 168, 0.3);
  }
-.tbl-content{
+.content{
   height:300px;
+  padding-right:3%;
   overflow-x:auto;
   margin-top: 0px;
   border: 1px solid rgba(255,255,255,0.3);
 }
 th{
   padding: 20px 15px;
-  text-align: left;
+  text-align: center;
   font-weight: 500;
   font-size: 12px;
   color: #fff;
   text-transform: uppercase;
 }
-td{
+tbody div{
+ /* border-left: 10px solid transparent; 
+
+ border-bottom: 10px solid ;
+  
+  display:flex;
+  justify-content: space-between;
   padding: 15px;
   text-align: left;
   vertical-align:middle;
   font-weight: 300;
   font-size: 12px;
-  color: #fff;
-  border-bottom: solid 1px rgba(255,255,255,0.1);
+  color: #fff; */
+  /* border-bottom: solid 1px rgba(255,255,255,0.1); */
 }
 
+.balloon-left {
+  position: relative;
+  display: flex;
+  /* justify-content: space-between; */
+  margin: 1.5% 0% 1.5% 3%;
+  padding: 1.5% 5%;
+  /* min-width: 120px; */
+  /* max-width: 100%; */
+  color: white;
+  font-size: 16px;
+  background: #555;
+  border: solid 3px #555;
+  /* box-sizing: border-box; */
+  opacity: 60%;
+}
+.leftmovie{
+  position:relative;
+  left : 2%;
+  
+}
+.centertitle{
+  position:absolute;
+  left : 15%;
+  width: 20%;
+
+}
+.rightcontent{
+  position:relative;
+  left : 55%;
+  width: 40%;
+
+}
+
+
+.balloon-left:before {
+
+  position: absolute;
+  /* top: 50%;
+  left: -24px; */
+  margin-top: -12px;
+  border: 12px solid transparent;
+  border-right: 12px solid #555;
+  z-index: 2;
+  opacity:60%;
+
+}
+
+.balloon-left:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -30px;
+  margin-top: -14px;
+  border: 14px solid transparent;
+  border-right: 14px solid #555;
+  z-index: 1;
+}
+
+.balloon-left p {
+  margin: 0;
+  padding: 0;
+}
+
+.trtitle{
+
+}
+
+.trcontent{
+
+}
+
+
+
+/* .reviewBox{
+  border: 1px solid gray;
+  border-radius: 5%;
+} */
 
 /* demo styles */
 

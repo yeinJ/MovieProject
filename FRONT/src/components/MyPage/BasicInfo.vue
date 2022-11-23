@@ -3,9 +3,9 @@
     <br>
     <h1>{{ username }}의 페이지</h1>
     <br>
-    <b-img
-    src = 'https://t1.daumcdn.net/cfile/tistory/27738433597DCB1312' 
-    v-bind="mainProps" rounded="circle" alt="Circle image"></b-img>
+    <p class=" h1 mb-2">
+      <b-icon class="iconImg"  style="width: 20%; height: 50%;" icon="person-circle"></b-icon>
+    </p>
   </div>
 </template>
 
@@ -25,5 +25,7 @@ div {
     text-align: center;
     margin-top : 5%;
 }
+
+
 
 </style>

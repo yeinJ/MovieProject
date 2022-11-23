@@ -4,6 +4,8 @@
         v-bind:username="userInfo?.username"/>
         <LikedMovie
         v-bind:movies="userInfo?.like_movies"/>
+        <br>
+        <br>
         <WrittenReview
         v-bind:reviews="userInfo?.reviews"/>
     </div>

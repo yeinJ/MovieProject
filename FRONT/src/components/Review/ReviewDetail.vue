@@ -8,11 +8,13 @@
         headerBgVariant="dark"
         footerBgVariant="dark"
         v-on:hide="resetModalData"
-      >
+        v-on:show="myPage"
+      >       
         <form v-on:submit.prevent="createMovieReview">
           <label for="title" text-color="black">제목</label>
           <input
             type="text"
+            v-bind:readonly="!isSameUser"
             class="form-control"
             id="title"
             placeholder="Enter Title"
@@ -22,6 +24,7 @@
           <br />
           <label for="content">내용</label>
           <textarea
+            v-bind:readonly="!isSameUser"
             class="form-control"
             id="content"
             rows="3"
@@ -30,6 +33,7 @@
           
           <b-button
             block
+            v-if="isSameUser"
             variant="danger"
             class="btn btn-danger mt-3"
             id="submit"
@@ -40,6 +44,7 @@
           <b-button
             type="submit"
             block
+            v-if="isSameUser"
             variant="danger"
             class="btn btn-danger mt-3"
             v-on:click="deleteReview"
@@ -70,12 +75,21 @@ export default {
     return {
       title: '',
       content: '',
+      userReviews: [], 
     };
   },
   props: ["review"],
   computed: {
     modalId() {
       return `modal-detail-${this.review.id}`
+    },
+    isSameUser() {
+      for (const userReview of this.userReviews) {
+        if (userReview.id === this.review.id) {
+          return true
+        }
+      }
+      return false
     }
   },
   created() {
@@ -120,6 +134,19 @@ export default {
     resetModalData() {
       this.title = this.review.title;
       this.content = this.review.content;
+    },
+    myPage() {
+      if (this.$store.state.token) {
+        axios({
+          method: 'get',
+          url: `${API_URL}/mypage/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`
+          },
+        })
+          .then((res) => {this.userReviews = res.data.reviews})
+          .catch((err) => console.log(err))
+      }
     }
   },
 };

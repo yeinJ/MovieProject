@@ -1,32 +1,29 @@
 <template>
   <div id="app">
-      <nav class="navbar navbar-expand-sm navbar-light bg-danger">
-        <div class="container-fluid">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <router-link v-bind:to="{name:'HomeView'}" class="nav-link">
-                <img src="@/../public/hypy.png" alt="Hypy">
-              </router-link>
-            </li>
+      <b-navbar toggleable="md" type="dark" variant="danger">
+  
+          <router-link v-bind:to="{name:'HomeView'}" class="nav-link">
+            <img src="@/../public/hypy.png" alt="Hypy">
+          </router-link>
+   
+          <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto">
             <div v-if="!this.$store.state.token">
-              <!-- <li class="nav-item">
-                <router-link v-bind:to="{name:'SignUpView'}" class="nav-link">SignUp</router-link>
-              </li> -->
+
               <li class="nav-item">
                 <router-link v-bind:to="{name:'LoginView'}" class="nav-link">LogIn</router-link>
               </li>
             </div>
             <div v-else>
               <li class="nav-item" type="button" @click="logout">
-                <a class="nav-link">Logout</a>
+                <a class="nav-link h5 mb-2">Logout</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item h5 mb-2">  
                 <router-link v-bind:to="{name:'MyPageView'}" class="nav-link">MyPage</router-link>
               </li>
             </div>  
-          </ul>
-        </div>
-      </nav>
+          </b-navbar-nav>
+      </b-navbar>
       <router-view/>
 
     
@@ -63,17 +60,18 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@200&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300&display=swap');
 html
 body {
   background-color:rgb(8, 8, 14);
   color:white;
-  font-family: 'Prompt', sans-serif;
-  /* font-family: 'Black Han Sans', sans-serif; */
+  /* font-family: 'Prompt', sans-serif; */
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .nav-link img{
-  width : 60px;
+  width : 90px;
+  margin-left:10%;
 }
 
 .nav-item{

@@ -1,21 +1,30 @@
 <template>
     <div class="reviewList">
-      <p>{{ this.review.review_like_users_count }}</p>
-      <p>{{ this.review.title }}</p>
-      <!-- <td>{{review?.content}}</td> -->
-      <p>{{ created_date }}</p>
-      <div
-        v-if="this.$store.state.token"
-        v-on:click="likeReview"
-        v-bind:class="{ 'is-liked': this.isLiked }"
-      >
-        Like
-      </div>
-      
       <ReviewDetail 
       class="review_Detail"
       v-bind:review="review" />
-      <b-icon class="btn-x h2 mb-2" icon="x" v-on:click="deleteReview"> Delete </b-icon>
+      
+      <p>{{ this.review.title }}</p>
+      <p>{{ created_date }}</p>
+      
+      <div v-if="this.$store.state.token">
+        <b-icon
+            v-if="this.isLiked"
+            icon="hand-thumbs-up-fill"
+            font-scale="1.5"
+            v-on:click="likeReview"
+            > 
+        </b-icon>
+        <b-icon
+            v-else
+            icon="hand-thumbs-up"
+            font-scale="1.5"
+            v-on:click="likeReview"
+            > 
+        </b-icon>
+        {{ this.review.review_like_users_count }}
+        Like
+      </div>
     </div>
 
 </template>
@@ -44,9 +53,6 @@ export default {
   created() {
     this.checkLiked();
   },
-  // mounted() {
-  //   this.SameUser()
-  // },
   methods: {
     checkLiked() {
       if (this.$store.state.token) {

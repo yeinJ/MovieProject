@@ -71,8 +71,6 @@ h1{
   color:white;
   font-family: 'Dancing Script', cursive;
   /* font-family: 'Prompt', sans-serif; */
-
-
   
 }
 

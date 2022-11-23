@@ -3,7 +3,7 @@
     <div class="movielist">
       <img v-bind:src="posterPath" v-bind:alt="movie?.title">
       <div class="moviemenu">
-        <b-card-title class='movietitle'>{{movie.title}}</b-card-title>
+        <!-- <b-card-title class='movietitle'>{{movie.title}}</b-card-title> -->
         <b-button v-bind:to ="{ name: 'DetailView', params: { id: movie.id } }" href="#" variant="danger">
           Detail
         </b-button>
@@ -86,7 +86,7 @@ export default {
     text-align: center;
     position: absolute;
     top: 50%;
-    left: 40%;
+    left: 33%;
     transform: translate( -50%, -50% );
   }
   .overview {

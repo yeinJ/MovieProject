@@ -70,7 +70,11 @@ export default {
             // this.$router.push({ name: "DetailView" })
           })
           .catch((err)=> {
-            console.log(err)
+            if (err.response.status === 400) {
+              alert('제목은 최대 100자까지 입력가능합니다.')
+            } else {
+              console.log(err)
+            }
           })        
       }
     },
