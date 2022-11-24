@@ -90,7 +90,7 @@
 
 - DB 만들기
   
-  - 프로젝트 영화 DB는 TMDB 사이트에서 API Key를 통해 데이터 받아옴
+  - 프로젝트 영화 데이터는 TMDB 사이트에서 API Key를 통해 1000개 받아옴
   
   - 데이터를 받아올 때 사용한 코드
   
@@ -117,37 +117,136 @@
               'poster_path': movie['poster_path'],
               'genres': movie['genre_ids']
           }
+      total_data.append(data)
   ```
   
+  ```python
+  # 장르 데이터 코
+  def get_genre_json():
+  
+      total_data = []
+  
+      # key 이용해서 데이터 가져오기
+      request_url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={TMDB_API_KEY}&language=ko-KR"
+      movies_genre = requests.get(request_url).json()
+      # model에 필요한 데이터 형식 지정
+      print(movies_genre)
+      for movie_genre in movies_genre['genres']:
+          data = {
+              'model': 'movies.genre',
+              'pk': movie_genre['id'],
+              'fields': {
+                  'name': movie_genre['name']
+              }
+          }
+  
+  
           total_data.append(data)
+  ```
 
-```
-- 장르데이터 코드
+
+
+
+## 4. 영화 추천 알고리즘
+
+#### 유저 데이터 기반 추천
+
+1. 로그인 하지 않은 유저
+   
+   - 추천 목록 컴포넌트가 보이지 않도록 한다.
+
+2. 좋아요한 영화가 없는 유저
+   
+   - 추천 영화 목록을 제공하지 않는다. 
+     
+     ![](README_assets/fa84820b58b59348d81353f19e231991b362c726.PNG)
+
+3. 좋아요한 영화가 있는 유저
+   
+   - 영화 추천 알고리즘을 통해, 35개의 영화 목록을 제공한다.
+     
+     ![](README_assets/2022-11-24-16-23-41-image.png)
+
+#### 알고리즘 설명
+
+   1. DB 내에 저장된 영화 데이터들의 장르를 기반으로, 각 영화 간의 코사인 유사도를 분석
+
+2. 코사인 유사도 DataFrame을 Django에서 import
+
+3. 유저가 좋아하는 영화 data를 가져와, 각 영화들과의 코사인 유사도가 상위인 n개의 영화 추출 (총 개수 100개 가량으로 조정)
+
+4. 100개 가량의 영화 중, vote_average가 상위인 35개 영화를 추천
 
 ```python
-def get_genre_json():
+import pandas as pd
+import numpy as np
 
-    total_data = []
+# 코사인 유사도 상위 n개 영화 반환
+def find_sim_movie(like_movie_ids, movie_ids, sorted_ind, top_n):
+    recommend_movies_ids = []
 
-    # key 이용해서 데이터 가져오기
-    request_url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={TMDB_API_KEY}&language=ko-KR"
-    movies_genre = requests.get(request_url).json()
-    # model에 필요한 데이터 형식 지정
-    print(movies_genre)
-    for movie_genre in movies_genre['genres']:
-        data = {
-            'model': 'movies.genre',
-            'pk': movie_genre['id'],
-            'fields': {
-                'name': movie_genre['name']
-            }
-        }
+    for id in like_movie_ids:
+        # sorted_ind 인자로 입력된 genre_sim_sorted_ind 객체에서 코사인 유사도 순으로 top_n 개의 index 추출
+        idx = movie_ids.index(id)
+        similar_indexes = sorted_ind[idx, :(top_n)]
+        similar_indexes = similar_indexes.reshape(-1).tolist()
+        recommend_movies_ids += [movie_ids[x] for x in similar_indexes if (movie_ids[x] not in recommend_movies_ids)]
 
+    return recommend_movies_ids
 
-        total_data.append(data)
+# 추천 영화 목록 조회
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def movie_recommend(request):
+    serializer = UserSerializer(request.user)
+    like_movies_id = [movie['id'] for movie in serializer.data['like_movies']]
+    print('like_movies: ', like_movies_id)
+
+    # 유저가 찜한 영화 목록이 있는 경우
+    if len(like_movies_id) > 0:
+        # 1. 유저가 찜한 영화들의 장르 기반 코사인 유사도를 계산하여, 추천 영화 아이디 추출 (100개 정도)
+        sim_path = 'movies/fixtures/sim_df.csv'
+
+        sim_df = pd.read_csv(sim_path, encoding='utf-8')
+        sim_df = sim_df.set_index('movie_id', drop=True)
+
+        movie_ids = sim_df.index.tolist()
+
+        sim_list = sim_df.values.tolist()
+        sim_np = np.array(sim_list)
+    
+        genre_sorted_ind = sim_np.argsort()[:, ::-1]
+
+        
+        n = max(100 // len(like_movies_id), 1)
+        recommend_movies_ids = find_sim_movie(like_movies_id, movie_ids, genre_sorted_ind, n)
+        recommend_movies_ids = [id for id in recommend_movies_ids if id not in like_movies_id]
+
+        # 2. 추천 영화 아이디를 가진 영화 객체 저장
+        recommend_movies = []
+        for id in recommend_movies_ids:
+            try:
+                movie = Movie.objects.get(id=id)
+                recommend_movies.append(movie)
+            except Exception as e:
+                print(e)
+                print(id)
+
+        # 3. vote_average를 기준으로 내림차순 정렬하여 상위 35개 영화 정보 반환
+        sorted_recommend_movies = sorted(recommend_movies, key=lambda movie: movie.vote_average, reverse=True)[:35]
+        serializer = MovieSerializer(sorted_recommend_movies, many=True)
+        return Response(serializer.data)
+
+    
+    else:
+        return Response(False)
 ```
 
-## 4.  웹 페이지 설명
+
+
+
+
+## 5.  웹 페이지 설명
 
 #### 필수 기능 설명
 
@@ -199,10 +298,6 @@ def get_genre_json():
 
 ![](README_assets/ff50cc53a775e45244460f23210c22cd068af28e.PNG)
 
-
-
-
-
 ## 6. 느낀점
 
 #### 정예인
@@ -220,3 +315,11 @@ SSAFY에서 한 학기동안 배운 지식을 가지고 해당 프로젝트를 �
 SSAFY에서 한 학기 동안 배운 것들을 활용하여, 웹사이트 제작을 직접 해보니 매우 뿌듯한 경험이었습니다.
 특히 열심히하고 잘맞는 페어 예인이를 만나서 정말 재밌게 잘 마무리할 수 있었습니다. 갓예인 찬양합니다.
 더불어, 제3의 멤버로서 함께 고군분투해주신 자룡쌤도 정말 감사드립니다.
+
+
+
+
+
+### 페이지 내에는 행복이 숨겨져 있습니다 :)
+
+#### 행복을 찾아보세요~~!
