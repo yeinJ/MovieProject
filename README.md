@@ -1,35 +1,222 @@
 # MovieProject
 
-## master 브랜치에는 절대 push 하지 말것!!
+# # HYPYV (Haeun Yein PYthon Vue)
 
+- 사용자가 선호하는 영화 선택 시 코사인유사도 기반으로 유사한 영화 목록들을 추천해주는 웹 서비스입니다.
 
-깃허브에서 파일을 가져올 때는 master 브랜치 내용을 pull 하면 됨  // git pull origin master
+## **🧰** 사용 기술
 
+- Python 3.9
 
-각자 개인의 브랜치를 만들고 거기에 commit & push 하기 (예인이가 코드 제대로 돌아가는 거 확인 하고 master로 merge 할 예정입니다.)
+- Django 3.2
 
-commit message는 자신이 수정한 내용 잘 드러나게 작성하기
-공통 파일(이미지, css)은 확정되면 master에 올릴 예정
+- Node.js 16
 
+- Vue2
 
+## 📅 프로젝트 기간
+
+- 2022.11.16 ~ 22.11.25
+
+## 배포 링크
+
+- http://hypyv.shop/
+
+## 1. 팀원 정보 및 업무 분담 내역
+
+**팀장 : 정예인**
+
+- Vue 클라이언트 구현 및 배포
+
+- Front-end
+
+**팀원 : 류하은**
+
+- Django를 이용한 서버 로직 구현
+
+- Back-end
+
+## 2. 목표 서비스 및 실제 구현 정도
+
+**2-1. 목표 서비스** 
+
+- 영화 추천 서비스
   
+  - 유저가 좋아요한 영화를 바탕으로 코사인 유사도 기반 추천 서비스 구현
   
-### 브랜치 설정
-1. git branch  위치확인
-2. git branch 브랜치명 // 브랜치 등록
-3. git switch 브랜치명 // 브랜치 옮기기
+  - 유저가 담은 데이터는 추천 페이지에 뜨지 않도록 구현
+
+- Community 기능
   
- 
-###  <commit & push>
-  1) 코드 수정
-  2) git switch 브랜치명
-  3) git add . 
-  2) git commit -m "입력할 커밋 메시지" 
-  3) git push --set-upstream 브랜치명
+  - 영화 리뷰 게시판 운영
   
- 
- 모든 브랜치 확인 명령어: git branch -a
+  - 해당 영화에 접속 시, 다른 유저가 작성한 게시판 확인 가능
   
-  ---------------------------------------------------------------------
-  명령어 쓰지 않고 vscode UI 이용해도 됨
+  - 작성자는 해당 게시판 Delete 및 Modify 가능
   
+  - 로그인한 회원의 경우 해당 리뷰 좋아요 기능 가능
+  
+  - 좋아요 순으로 리뷰 게시판 정렬 기능 구현
+
+- 영화 조회 서비스
+  
+  - 해당 영화에 대한 정보 조회
+
+- 좋아요 기능
+  
+  - 영화 좋아요 기능
+  
+  - 게시판 좋아요 기능
+
+- 마이페이지(유저 개인 페이지)
+  
+  - 유저가 좋아요한 영화 확인 가능
+  
+  - 해당 유저가 작성한 리뷰 확인 가능 및 해당 리뷰 페이지 방문 가능
+
+**2-2 데이터베이스 모델링(ERD)**
+
+![loading-ag-587](README_assets/84640af78baa766c8220cb769b1b2d13da27bca3.png)
+
+## 3.  프로젝트 진행 과정
+
+**3-1. 준비 단계**
+
+- 목표 서비스 설정
+  
+  - 필요한 기능, 페이지 초안 등에 관에 Component 제작
+
+![](README_assets/28d468aa7056ede373b601d9ffa2492b0c51b9ac.jpeg)
+
+- DB 만들기
+  
+  - 프로젝트 영화 DB는 TMDB 사이트에서 API Key를 통해 데이터 받아옴
+  
+  - 데이터를 받아올 때 사용한 코드
+  
+  - 영화 데이터 코드
+  
+  ```python
+  total_data = []
+  
+  # 1페이지부터 10페이지까지의 데이터를 가져옴.
+  for i in range(1, 11):
+      # key 이용해서 데이터 가져오기
+      request_url = f"<https://api.themoviedb.org/3/movie/popular?api_key={TMDB_API_KEY}&language=ko-KR&page={i}>"
+      movies = requests.get(request_url).json()
+      # model에 필요한 데이터 형식 지정
+      for movie in movies['results']:
+          data = {
+              'movie_id': movie['id'],
+              'title': movie['title'],
+              'release_date': movie['release_date'],
+              'popularity': movie['popularity'],
+              'vote_count':movie['vote_count'],
+              'vote_average': movie['vote_average'],
+              'overview': movie['overview'],
+              'poster_path': movie['poster_path'],
+              'genres': movie['genre_ids']
+          }
+  ```
+  
+          total_data.append(data)
+
+```
+- 장르데이터 코드
+
+```python
+def get_genre_json():
+
+    total_data = []
+
+    # key 이용해서 데이터 가져오기
+    request_url = f"https://api.themoviedb.org/3/genre/movie/list?api_key={TMDB_API_KEY}&language=ko-KR"
+    movies_genre = requests.get(request_url).json()
+    # model에 필요한 데이터 형식 지정
+    print(movies_genre)
+    for movie_genre in movies_genre['genres']:
+        data = {
+            'model': 'movies.genre',
+            'pk': movie_genre['id'],
+            'fields': {
+                'name': movie_genre['name']
+            }
+        }
+
+
+        total_data.append(data)
+```
+
+## 4.  웹 페이지 설명
+
+#### 필수 기능 설명
+
+ Frontend
+
+- 프론트의 경우 vuex를 통해 전역으로 데이터 관리, Movie Data 및 User 정보의 경우 store에서 저장되어 관리
+
+- 단, 영화 Detail 정보와 같이 단기적으로 필요한 정보의 경우에는 컴포넌트에서 axios 요청을 통해 받아오도록 한다.
+
+#### 웹 서비스 목표
+
+- 유저 좋아요 기반 추천 서비스
+
+- 커뮤니티를 통한 유저간 소통 가능
+
+#### 웹 페이지 화면을 통한 기능 설명
+
+1. 로그인
+   
+   - 기본적인 로그인 페이지
+   
+   ![](README_assets/56c13c1ded2b6dec778b9a6687c008daed82f727.PNG)
+
+2. 회원가입
+   
+   - 회원가입 페이지
+   
+   ![](README_assets/2022-11-24-15-42-22-image.png)
+
+3. 메인페이지
+
+    ![](README_assets/a91aeea62d6809ebcf5b0b873071ebce3733fb56.PNG)
+
+![](README_assets/26182d847d32216fe918e30e934736ff0b3bbe25.PNG)
+
+![](README_assets/2022-11-24-15-46-35-image.png)
+
+하단 더보기 버튼 구현
+
+4. 마이페이지
+
+![](README_assets/bb8fc3b59414777b1da0481d83aae2d4298a88c6.PNG)
+
+![](README_assets/a9067e6495107ebfb9bd2c021b7e3af7386ea8ac.PNG)
+
+5. 영화 세부 페이지
+
+![](README_assets/fad1ed0acda3f023b657c2c4d3ccff260e543275.PNG)
+
+![](README_assets/ff50cc53a775e45244460f23210c22cd068af28e.PNG)
+
+
+
+
+
+## 6. 느낀점
+
+#### 정예인
+
+SSAFY에서 한 학기동안 배운 지식을 가지고 해당 프로젝트를 진행했습니다. 하면서 다양한 오류를 잡고 여러 기능들을 구현하며 다양한 코드를 분석해보는 시간을 갖게 되어 좋았습니다.
+
+처음부터 팀원과 Component 및 ERD를 구성하며 프로젝트의 처음과 끝을 마무리 할 수 있어서 좋앗습니다.
+
+아직까지 Vue , Django 에는 다양한 기능들이 있기에 여러 기능들을 차차 팀원과 추가해나가고 싶습니다. ㅎㅎ 
+
+하은아 같이해줘서 고마워 ♡
+
+#### 류하은
+
+SSAFY에서 한 학기 동안 배운 것들을 활용하여, 웹사이트 제작을 직접 해보니 매우 뿌듯한 경험이었습니다.
+특히 열심히하고 잘맞는 페어 예인이를 만나서 정말 재밌게 잘 마무리할 수 있었습니다. 갓예인 찬양합니다.
+더불어, 제3의 멤버로서 함께 고군분투해주신 자룡쌤도 정말 감사드립니다.
