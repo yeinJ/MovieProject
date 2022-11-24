@@ -29,6 +29,7 @@
             id="content"
             rows="3"
             v-model="content"
+            style="height:150%"
           ></textarea>
           
           <b-button
@@ -50,18 +51,19 @@
             v-on:click="deleteReview"
             >Delete</b-button
           >
-        
+          
         </form>
+        <p>{{created_date}}</p>
         <template #modal-footer="{ hide }">
           <b-button
-            size="sm"
-            variant="outline-secondary"
-            v-on:click="hide('forget')"
+          size="sm"
+          variant="outline-secondary"
+          v-on:click="hide('forget')"
           >
-            Close
+          Close
           </b-button>
         </template>
-      </b-modal>
+    </b-modal>
     </div>
   </div>
 </template>
@@ -75,6 +77,7 @@ export default {
     return {
       title: '',
       content: '',
+      created_date: '',
       userReviews: [], 
     };
   },
@@ -134,6 +137,7 @@ export default {
     resetModalData() {
       this.title = this.review.title;
       this.content = this.review.content;
+      this.created_date = this.review.created_date;
     },
     myPage() {
       if (this.$store.state.token) {
@@ -168,5 +172,9 @@ export default {
 .btn-7:hover:before,
 .btn-7:hover:after {
   background-color: #000;
+}
+
+textarea.form-control {
+  height: calc(1.5em + 15rem + 2px) !important;
 }
 </style>

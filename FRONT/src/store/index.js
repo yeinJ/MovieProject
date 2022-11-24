@@ -44,7 +44,6 @@ export default new Vuex.Store({
       axios({
         method:'get',
         url : `${API_URL}/api/v1/movies/`,
-
       })
         .then((res) => {
           context.commit('GET_MOVIES', res.data)
@@ -66,6 +65,10 @@ export default new Vuex.Store({
       })
         .then((res) => {
           context.commit('SAVE_TOKEN',res.data.key)
+        })
+        .catch((err) => {
+          console.log(err)
+          alert('이미 존재하는 ID입니다.')
         })
     },
     logIn(context, payload) {

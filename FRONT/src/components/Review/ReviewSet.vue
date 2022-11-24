@@ -1,8 +1,8 @@
 <template>
   <div class="board-list">
     <table class="table">
-      <h1>Review</h1>
-      <div class="writeReview">
+      <h1 style="padding-top:2%">Review</h1>
+      <div class="writeReview" v-if="loginComfirm">
         <ReviewForm />
       </div>
       <div>
@@ -21,6 +21,7 @@
         v-model="currentPage"
         v-bind:total-rows="rows"
         v-bind:per-page="perPage"
+        style="padding-bottom:2%"
         align="center"
       ></b-pagination>
     </table>
@@ -55,6 +56,9 @@ export default {
       );
       return newReviews;
     },
+    loginComfirm() {
+      return this.$store.state.token
+    }
   },
 };
 </script>

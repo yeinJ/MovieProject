@@ -15,7 +15,6 @@
       <hr>
       <h1>전체영화목록</h1>
       <MovieTotalListView/>
-      <button class="btn danger" v-on:click="morepage" >More</button>
   </div>
 
 
@@ -31,9 +30,6 @@ export default {
     RecommendListView,
   },
   methods : {
-    morepage() {
-      console.log('이거버튼')
-    }
   }
 
 }

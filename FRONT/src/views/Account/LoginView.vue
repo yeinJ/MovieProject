@@ -39,9 +39,17 @@ export default {
       const password = this.password
 
       if (!username) {
-        alert('ID를 입력하세요.')
+        this.$swal({
+            text: 'ID를 입력하세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: '😢',
+        })
       } else if (!password) {
-        alert('Password를 입력하세요.')
+        this.$swal({
+            text: 'Password를 입력하세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: '😢',
+        })
       } else {
         const payload = {
           username: username,
@@ -64,6 +72,7 @@ h1{
   margin-top: 40px;
   padding-left : 40%;
   padding-right : 40%;
+  margin-bottom: 30%;
 }
 .loginbutton{
 

@@ -12,6 +12,7 @@ from accounts.serializers import UserSerializer
 
 import pandas as pd
 import numpy as np
+import random
 
 
 def find_sim_movie(like_movie_ids, movie_ids, sorted_ind, top_n):
@@ -78,7 +79,10 @@ def movie_recommend(request):
 # 전체 영화 목록 조회
 @api_view(['GET'])
 def movie_list(request):
+    print('여기 불러짐')
     movies = get_list_or_404(Movie)
+    print(movies[:10])
+    # random.shuffle(movies)
     serializer = MovieSerializer(movies, many=True)
     return Response(serializer.data)
 

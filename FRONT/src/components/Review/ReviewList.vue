@@ -4,10 +4,11 @@
       class="review_Detail"
       v-bind:review="review" />
       
-      <p>{{ this.review.title }}</p>
-      <p>{{ created_date }}</p>
+      <p class="reviewTitle">{{ this.review.title }}</p>
+      <!-- <p>{{ created_date }}</p> -->
       
-      <div v-if="this.$store.state.token">
+      <!-- <div v-if="this.$store.state.token"> -->
+      <div class="thumbsUp">
         <b-icon
             v-if="this.isLiked"
             icon="hand-thumbs-up-fill"
@@ -77,20 +78,22 @@ export default {
       }
     },
     likeReview() {
-      axios({
-        method: "post",
-        url: `${API_URL}/api/v1/reviews/${this.review.id}/like/`,
-        headers: {
-          Authorization: `Token ${this.$store.state.token}`,
-        },
-      })
-        .then((res) => {
-          this.isLiked = res.data;
-          location.reload();
+      if (this.$store.state.token) {
+        axios({
+          method: "post",
+          url: `${API_URL}/api/v1/reviews/${this.review.id}/like/`,
+          headers: {
+            Authorization: `Token ${this.$store.state.token}`,
+          },
         })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then((res) => {
+            this.isLiked = res.data;
+            location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     },
 
     deleteReview() {
@@ -117,18 +120,22 @@ export default {
 .reviewList{
   padding:1%;
 }
-.is-liked {
-  text-decoration: line-through;
-}
 
-/* p:hover {
-  background-color: gray;
-  opacity: 70%;
-} */
+.reviewTitle {
+  position: absolute;
+  left: 30%;
+}
 
 .review_Detail{
   display: inline-block;
-
+  padding-left: 5%
+  /* position: absolute;
+  left: 8%; */
+  
+}
+.thumbsUp {
+  position: absolute;
+  right: 10%;
 }
 
 .btn-x {

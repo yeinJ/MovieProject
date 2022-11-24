@@ -161,9 +161,10 @@ export default {
 
 .ReviewSet {
   position: relative;
-  margin-left : 10%;
+  /* margin-left : 10%;
   margin-right : 10%;
-  margin-bottom : 10%;
+  margin-bottom : 10%; */
+  margin: 5% 10% 5% 10%
 }
 .likemovie{
   position: absolute;

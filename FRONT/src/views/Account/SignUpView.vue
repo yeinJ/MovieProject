@@ -8,16 +8,30 @@
           <b-form-invalid-feedback v-bind:state="validation">
             Your user ID must be 5-12 characters long.
           </b-form-invalid-feedback>
-          <b-form-valid-feedback v-bind:state="validation">
+          <!-- <b-form-valid-feedback v-bind:state="validation">
             Looks Good.
-          </b-form-valid-feedback>
+          </b-form-valid-feedback> -->
           
         <label for="password1" >Password1</label>
           <b-form-input type="password" id="password1" v-model="password1" ></b-form-input>
+          <b-form-invalid-feedback v-bind:state="passwordvalidation1">
+            Your Password must be at least 8 long.
+          </b-form-invalid-feedback>
+          <!-- <b-form-valid-feedback v-bind:state="passwordvalidation1">
+            Looks Good.
+          </b-form-valid-feedback> -->
+
 
         <label for="password2" >Password2</label>
           <b-form-input type="password" id="password2" v-model="password2" ></b-form-input>
-        <!-- <input type="submit" value="SignUp"> -->
+          <b-form-invalid-feedback v-bind:state="passwordvalidation2" v-if="password2">
+            Your Password2 must be same with Password1
+          </b-form-invalid-feedback>
+          <!-- <b-form-valid-feedback v-bind:state="passwordvalidation2">
+            Looks Good.
+          </b-form-valid-feedback> -->
+
+
         <b-button class='signupbutton' type="submit" value="SignUp" block variant="danger">SignUp</b-button>
       </b-form>
     </div>
@@ -32,17 +46,19 @@ export default {
     return {
       username : '',
       password1 : '',
-      password2 : '',
+      password2 : null,
     }
   },
   computed: {
       validation() {
         return this.username.length > 4 && this.username.length < 13
       },
-      // passwordvalidation1() {
-      //   return this.password1.length>7 && this.password1.length<21 
-      // }
-
+      passwordvalidation1() {
+        return this.password1.length > 7
+      },
+      passwordvalidation2() {
+        return this.password2 && this.password1 === this.password2
+      }
 
   },
   methods: {
@@ -51,13 +67,32 @@ export default {
       const password1 = this.password1
       const password2 = this.password2
 
-      const payload = {
-        username: username,
-        password1: password1,
-        password2: password2,
+      if (!username) {
+        this.$swal({
+            text: 'ID를 입력하세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: '😢',
+        })
+      } else if (!password1) {
+        this.$swal({
+            text: 'Password1을 입력하세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: '😢',
+        })
+      } else if (!password2) {
+        this.$swal({
+            text: 'Password2을 입력하세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: '😢',
+        })
+      } else {
+        const payload = {
+          username: username,
+          password1: password1,
+          password2: password2,
+        }
+        this.$store.dispatch('signUp',payload)
       }
-
-      this.$store.dispatch('signUp',payload)
     },
     // passwordvalidation2() {
     //   if (this.password1===this.password2 && this.password2!==''){
@@ -78,7 +113,8 @@ export default {
   .Signupbox {
     margin-top: 40px;
     padding-left : 40%;
-    padding-right : 40%
+    padding-right : 40%;
+    margin-bottom : 30%;
   }
   .signupbutton{
     margin-top : 10%;

@@ -45,12 +45,18 @@ export default {
       const content = this.content
       const movie = this.$route.params.id
 
-      if (!this.$store.state.token) {
-        alert('로그인 후 등록 가능합니다.')
-      } else if(!title){
-        alert('제목을 입력해주세요')
+      if(!title){
+        this.$swal({
+            text: '제목을 입력해주세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK',
+        })
       } else if(!content){
-        alert('내용을 입력해주세요')
+        this.$swal({
+            text: '내용을 입력해주세요.',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK',
+        })
       } else {
         axios({
           method : 'post',
@@ -71,7 +77,11 @@ export default {
           })
           .catch((err)=> {
             if (err.response.status === 400) {
-              alert('제목은 최대 100자까지 입력가능합니다.')
+              this.$swal({
+                  text: '제목은 최대 100자까지 입력가능합니다.',
+                  confirmButtonColor: '#d33',
+                  confirmButtonText: 'OK',
+              })
             } else {
               console.log(err)
             }
@@ -95,6 +105,10 @@ div{
   position:relative;
   margin: 0;
   padding: 0;
+}
+
+textarea.form-control {
+  height: calc(1.5em + 15rem + 2px) !important;
 }
 
 </style>
