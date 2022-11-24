@@ -61,7 +61,7 @@ h1{
 
 
 .typing-demo {
-  width: 20ch;
+  width: 56%;
   animation: typing 2s steps(21), blink .10s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;

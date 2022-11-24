@@ -10,7 +10,7 @@
           <b-navbar-nav class="ml-auto">
             <div v-if="!this.$store.state.token">
 
-              <li class="nav-item">
+              <li class="nav-item h5 mb-2">
                 <router-link v-bind:to="{name:'LoginView'}" class="nav-link">LogIn</router-link>
               </li>
             </div>

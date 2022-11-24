@@ -33,7 +33,7 @@
 import axios from "axios";
 import ReviewDetail from "./ReviewDetail.vue";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "http://3.39.173.99:8000";
 
 export default {
   props: ["review",],

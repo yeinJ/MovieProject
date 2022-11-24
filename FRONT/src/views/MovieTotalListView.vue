@@ -66,13 +66,16 @@ export default {
 }
 
 .MoreButton{
-  position: relative;
-  left : 50%;
-  top : 10%;
+  display:flex;
+  justify-content: center;
   margin-top : 5%;
   margin-bottom: 5%;
 }
 
+.MoreButton :hover{
+  opacity: 50%;
+  transition : all 0.3s linear;
+}
 
 
 </style>

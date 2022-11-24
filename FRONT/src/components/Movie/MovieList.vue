@@ -15,7 +15,7 @@
 <script>
 // import axios from 'axios'
 
-// const API_URL = 'http://127.0.0.1:8000'
+// const API_URL = 'http://3.39.173.99:8000'
 
 export default {
   name:'MovieList',
@@ -34,21 +34,7 @@ export default {
     }
   },
   methods: {
-    // likeMovie() {
-    //   axios({
-    //     method : 'post',
-    //     url : `${API_URL}/api/v1/movies/${this.movie.id}/like/`,
-    //     headers: {
-    //       Authorization: `Token ${this.$store.state.token}`
-    //     }
-    //   })
-    //     .then((res) => {
-    //       this.isLiked = res.data
-    //     })
-    //     .catch((err)=> {
-    //       console.log(err)
-    //     })
-    // },
+
   }
 }
 </script>
@@ -70,7 +56,6 @@ export default {
     /* padding-left:7%; */
     /* padding-right: 15%; */
     padding-top :30%;
-
     position:relative;
   }
   .moviemenu{
@@ -85,7 +70,7 @@ export default {
     margin-top : 10%;
     text-align: center;
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 33%;
     transform: translate( -50%, -50% );
   }

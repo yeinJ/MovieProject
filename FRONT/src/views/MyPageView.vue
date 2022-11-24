@@ -17,7 +17,7 @@ import LikedMovie from '@/components/MyPage/LikedMovie.vue'
 import WrittenReview from '@/components/MyPage/WrittenReview.vue'
 
 import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = 'http://3.39.173.99:8000'
 
 export default {
     components: {
